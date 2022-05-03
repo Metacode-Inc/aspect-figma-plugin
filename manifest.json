@@ -1,0 +1,8 @@
+{
+  "name": "Aspect",
+  "id": "1103365588183360857",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma", "figjam"]
+}

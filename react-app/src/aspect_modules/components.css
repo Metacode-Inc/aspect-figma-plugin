@@ -1,0 +1,43 @@
+.aspect-div,
+.aspect-input,
+.aspect-button,
+.aspect-a,
+.aspect-p,
+.aspect-span,
+.aspect-h1,
+.aspect-h2,
+.aspect-h3,
+.aspect-h4,
+.aspect-h5,
+.aspect-h6 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.aspect-div,
+.aspect-input,
+.aspect-button,
+.aspect-nav,
+.aspect-header,
+.aspect-form {
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.aspect-input {
+  /* outline: 0; */
+  padding: 4px 6px;
+  margin: 0;
+  border: 1px solid #ddd;
+
+  /* removes unwanted inner shadow on mobile */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
