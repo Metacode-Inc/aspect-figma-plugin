@@ -6,16 +6,8 @@ import "./ui.css";
 declare function require(path: string): any;
 
 class App extends React.Component {
-  textbox: HTMLInputElement;
-
-  countRef = (element: HTMLInputElement) => {
-    if (element) element.value = "5";
-    this.textbox = element;
-  };
-
   onAdd = () => {
-    const count = parseInt(this.textbox.value, 10);
-    parent.postMessage({ pluginMessage: { type: "addFrames", count } }, "*");
+    parent.postMessage({ pluginMessage: { type: "addSelectedFrames" } }, "*");
   };
 
   onCancel = () => {
@@ -25,42 +17,32 @@ class App extends React.Component {
   componentDidMount() {
     window.onmessage = async (event) => {
       switch (event.data.pluginMessage.type) {
-        case "networkRequest":
+        // case "networkRequest":
+        //   (() => {
+        //     var request = new XMLHttpRequest();
+        //     // This link has random lorem ipsum text
+        //     request.open(
+        //       "GET",
+        //       "https://cors-anywhere.herokuapp.com/http://www.randomtext.me/download/text/lorem/ul-8/5-15"
+        //     );
+        //     request.responseType = "text";
+        //     request.onload = () => {
+        //       window.parent.postMessage(
+        //         { pluginMessage: request.response },
+        //         "*"
+        //       );
+        //     };
+        //     request.send();
+        //   })();
+        //   break;
+        case "addSelectedFrames":
           (() => {
-            var request = new XMLHttpRequest();
-            // This link has random lorem ipsum text
-            request.open(
-              "GET",
-              "https://cors-anywhere.herokuapp.com/http://www.randomtext.me/download/text/lorem/ul-8/5-15"
-            );
-            request.responseType = "text";
-            request.onload = () => {
-              window.parent.postMessage(
-                { pluginMessage: request.response },
-                "*"
-              );
-            };
-            request.send();
-          })();
-          break;
-        case "addFrames":
-          (() => {
-            const count = event.data.pluginMessage.count;
-            const frames = [];
-            for (let i = 0; i < count; i++) {
-              frames.push({
-                id: `frame-${i}`,
-                name: `frame-${i}`,
-                type: "FRAME",
-                children: [],
-              });
-            }
+            const frames: SceneNode[] = event.data.pluginMessage.frames;
+            console.log(frames);
           })();
 
         default:
           break;
-      }
-      if (event.data.pluginMessage.type === "networkRequest") {
       }
     };
   }
@@ -68,7 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <FigmaPluginView
-        title="Imported frames"
+        title="Frames to import"
         style={{ height: "100%", cursor: "default" }}
         itemsView={<FigmaPluginItem title="test" detail="another" />}
         callToAction="Add selected frames"

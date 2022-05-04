@@ -5,7 +5,8 @@
   "main": "code.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "dev-build": "REACT_NODE_ENV=development webpack"
   },
   "author": "Figma",
   "license": "MIT",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
+    "path-browserify": "^1.0.1",
     "react": "^17.0.2",
     "react-dev-utils": "^11.0.4",
     "react-dom": "^17.0.2"
