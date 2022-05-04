@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from "react";
 import './components.css';
 
 export namespace Aspect {
@@ -3652,7 +3652,7 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><div className="aspect-div" children={
 <><span className="aspect-span" children={this.props.title} style={{
 color: 'rgba(0,0,0,1)',
-fontSize: 13,
+fontSize: 12,
 fontWeight: 400,
 letterSpacing: 0,
 textAlign: 'left'
@@ -3670,7 +3670,8 @@ display: 'grid',
 gap: 2,
 justifyItems: 'flex-start'
 }} />
-<span className="aspect-span" children="Go to frame" style={{
+<HStack children={
+<><span className="aspect-span" children="Go to frame" style={{
 color: 'rgba(0,0,0,1)',
 fontSize: 11,
 fontWeight: 400,
@@ -3680,6 +3681,7 @@ textAlign: 'left'
 <SimpleButton style={{
 justifyContent: 'center'
 }} /></>
+} /></>
 } style={{
 alignItems: 'center',
 backgroundColor: 'rgba(255,255,255,1)',
@@ -3739,8 +3741,8 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><div className="aspect-div" children={
 <><span className="aspect-span" children={this.props.title} style={{
 color: 'white',
-fontSize: 13,
-fontWeight: 400,
+fontSize: 12,
+fontWeight: 500,
 letterSpacing: 0,
 textAlign: 'left'
 }} />
@@ -3820,8 +3822,8 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><div className="aspect-div" children={
 <><span className="aspect-span" children={this.props.title} style={{
 color: 'white',
-fontSize: 13,
-fontWeight: 400,
+fontSize: 12,
+fontWeight: 500,
 letterSpacing: 0,
 textAlign: 'left'
 }} />
@@ -3838,7 +3840,8 @@ display: 'grid',
 gap: 2,
 justifyItems: 'flex-start'
 }} />
-<span className="aspect-span" children="Go to frame" style={{
+<HStack children={
+<><span className="aspect-span" children="Go to frame" style={{
 color: 'white',
 fontSize: 11,
 fontWeight: 400,
@@ -3848,6 +3851,7 @@ textAlign: 'left'
 <SimpleButton style={{
 justifyContent: 'center'
 }} /></>
+} /></>
 } style={{
 alignItems: 'center',
 backgroundColor: '#06f',
@@ -3907,7 +3911,7 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><div className="aspect-div" children={
 <><span className="aspect-span" children={this.props.title} style={{
 color: 'rgba(0,0,0,1)',
-fontSize: 13,
+fontSize: 12,
 fontWeight: 400,
 letterSpacing: 0,
 textAlign: 'left'
@@ -3975,6 +3979,177 @@ detail?: string;
 accessoryIcon?: JSX.Element | JSX.Element[] | null;
 accessoryIconOnClick?: (e: any) => any;
 isSelected?: boolean;
+  }
+
+  export class State {
+    constructor(
+      public isHovered: boolean = false,
+      public isPressed: boolean = false,
+    ) {}
+  }
+}
+
+export class FigmaPluginView extends React.Component<
+FigmaPluginView.Props,
+FigmaPluginView.State
+> {
+  _isMounted = false;
+  get customState() {
+    
+    return 'default';
+  }
+
+  constructor(props: FigmaPluginView.Props) {
+    super(props);
+    this.state = new FigmaPluginView.State();
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+  
+  render() {
+    switch (this.customState) {
+      default:
+return (
+<div className="aspect-div" onMouseEnter={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={
+<><HStack children={
+<><span className="aspect-span" children={this.props.title} style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 11,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+boxShadow: '0 1px 0 0 rgba(0,0,0,0.1)',
+height: 30,
+justifyContent: 'space-between',
+padding: '0 16px',
+width: '100%',
+zIndex: 1
+}} />
+<ScrollableList children={this.props.itemsView} style={{
+width: '100%'
+}} />
+<div className="aspect-div" children={
+<><SimpleButton onClick={this.props.callToActionOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children={this.props.callToAction} style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 400,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+border: '1px solid #ddd',
+cursor: 'default',
+height: 28,
+padding: '0 12px'
+}} /></>
+} style={{
+alignItems: 'center',
+backgroundColor: 'rgba(255,255,255,1)',
+boxShadow: '0 -1px 0 0 rgba(0,0,0,0.1)',
+display: 'grid',
+gridAutoFlow: 'column',
+justifyContent: 'flex-end',
+minHeight: 46,
+padding: '0 16px',
+width: '100%'
+}} /></>
+} style={{
+alignContent: 'center',
+backgroundColor: 'rgba(255,255,255,1)',
+display: 'grid',
+gridTemplateRows: 'auto 1fr auto',
+height: 240,
+justifyItems: 'flex-start',
+width: 306
+,
+...this.props.style}} id={this.props.id} />
+)
+    }
+  }
+
+  handleMouseUp = (e: any) => {
+    if (!this._isMounted) {
+      return;
+    }
+    this.setState({
+      isPressed: false,
+    });
+  }
+}
+
+export namespace FigmaPluginView {
+  export interface Props {
+    id?: string;
+    key?: string;
+    style?: React.CSSProperties;
+    onMouseEnter?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+name?: string;
+itemsView?: JSX.Element | JSX.Element[] | null;
+title?: string;
+callToActionOnClick?: (e: any) => any;
+callToAction?: string;
   }
 
   export class State {
@@ -5708,7 +5883,7 @@ padding: '24px',
 position: 'fixed',
 top: '0',
 width: '100vw',
-zIndex: '5'
+zIndex: 5
 ,
 ...this.props.style}} id={this.props.id} />
 )
@@ -5786,7 +5961,7 @@ padding: '24px',
 position: 'fixed',
 top: '0',
 width: '100vw',
-zIndex: '5'
+zIndex: 5
 ,
 ...this.props.style}} id={this.props.id} />
 )
