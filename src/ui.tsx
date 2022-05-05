@@ -10,14 +10,14 @@ import "./ui.css";
 
 declare function require(path: string): any;
 
-class Auth {
-  constructor(private readonly token: string, uid: string) {}
-}
+// class Auth {
+//   constructor(public token: string, public uid: string,) {}
+// }
 
 class State {
   constructor(
     public preAuthToken?: string,
-    public auth?: Auth,
+    public api?: ClientApi,
     public errorMessage?: string
   ) {}
 }
@@ -38,60 +38,96 @@ export class App extends React.Component<any, State> {
     parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     window.onmessage = async (event) => {
       switch (event.data.pluginMessage.type) {
-        // case "networkRequest":
-        //   (() => {
-        //     var request = new XMLHttpRequest();
-        //     // This link has random lorem ipsum text
-        //     request.open(
-        //       "GET",
-        //       "https://cors-anywhere.herokuapp.com/http://www.randomtext.me/download/text/lorem/ul-8/5-15"
-        //     );
-        //     request.responseType = "text";
-        //     request.onload = () => {
-        //       window.parent.postMessage(
-        //         { pluginMessage: request.response },
-        //         "*"
-        //       );
-        //     };
-        //     request.send();
-        //   })();
-        //   break;
         case "addSelectedFrames":
           (() => {
             const frames: SceneNode[] = event.data.pluginMessage.frames;
             console.log(frames);
           })();
+          break;
+        case "getSavedAuthData":
+          (() => {
+            this.setupPostInitListeners();
+            console.log(event.data.pluginMessage);
+
+            // get and validate auth token
+            const { idToken, refreshToken, expiresIn } =
+              event.data.pluginMessage;
+            if (!(idToken && refreshToken && expiresIn)) {
+              return;
+            }
+
+            ClientApi.getUser(idToken)
+              .then((user) => {
+                this.setState({
+                  api: new ClientApi(idToken, refreshToken, expiresIn, user),
+                  preAuthToken: undefined,
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                this.setState({
+                  errorMessage: typeof err === "string" ? err : err.message,
+                });
+              });
+          })();
+          break;
 
         default:
           break;
       }
     };
 
+    // get saved auth token
+    parent.postMessage({ pluginMessage: { type: "getSavedAuthData" } }, "*");
+  }
+
+  setupPostInitListeners() {
     // when tab becomes active
     window.addEventListener("focus", async () => {
-      if (!this.state.preAuthToken) {
-        return;
-      }
       try {
-        const formData = new FormData();
-        formData.append("token", this.state.preAuthToken);
-        const res = await ClientApi.postRequest(
-          "/v1/get-validated-pre-auth-token",
-          formData
+        if (!this.state.preAuthToken) {
+          return;
+        }
+        console.log("focus preAuthToken", this.state.preAuthToken);
+
+        const authToken = await ClientApi.getAuthToken(this.state.preAuthToken);
+        this.setState({
+          preAuthToken: undefined,
+        });
+
+        const { idToken, refreshToken, expiresIn } =
+          await ClientApi.getIdTokenFromAuthToken(authToken);
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "saveAuthData",
+              idToken,
+              refreshToken,
+              expiresIn,
+            },
+          },
+          "*"
         );
-        const auth = new Auth(res.data.authToken, res.data.uid);
-        this.setState({ auth, preAuthToken: undefined });
-      } catch (error) {
-        this.setState({ errorMessage: error.message });
+
+        const user = await ClientApi.getUser(idToken);
+        console.log("getUserRes", user);
+
+        this.setState({
+          api: new ClientApi(idToken, refreshToken, expiresIn, user),
+        });
+      } catch (err) {
+        this.setState({
+          errorMessage: typeof err === "string" ? err : err.message,
+        });
       }
     });
   }
 
   render() {
-    if (this.state.auth) {
+    if (this.state.api) {
       return (
         <FigmaPluginView
           title="Frames to import"
@@ -102,6 +138,7 @@ export class App extends React.Component<any, State> {
         />
       );
     }
+
     return (
       <>
         <FigmaPluginLoginView
@@ -110,7 +147,9 @@ export class App extends React.Component<any, State> {
           }
           signinOnClick={async () => {
             try {
-              const res = await ClientApi.postRequest("/v1/get-pre-auth-token");
+              const res = await ClientApi.postRequest(
+                ClientApi.apiUrl("/v1/get-pre-auth-token")
+              );
               const preAuthToken = res.data.token;
               this.setState({ preAuthToken });
 
