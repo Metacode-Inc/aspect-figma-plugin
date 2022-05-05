@@ -9,17 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { FigmaPluginItem, FigmaPluginView } from "./aspect_modules/components";
+import { FigmaPluginItem, FigmaPluginLoginView, FigmaPluginView, } from "./aspect_modules/components";
+import { ClientApi } from "./ClientApi";
 import "./ui.css";
-class App extends React.Component {
-    constructor() {
-        super(...arguments);
+class Auth {
+    constructor(token, uid) {
+        this.token = token;
+    }
+}
+class State {
+    constructor(preAuthToken, auth, errorMessage) {
+        this.preAuthToken = preAuthToken;
+        this.auth = auth;
+        this.errorMessage = errorMessage;
+    }
+}
+export class App extends React.Component {
+    constructor(props) {
+        super(props);
         this.onAdd = () => {
             parent.postMessage({ pluginMessage: { type: "addSelectedFrames" } }, "*");
         };
         this.onCancel = () => {
             parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
         };
+        this.state = new State();
     }
     componentDidMount() {
         window.onmessage = (event) => __awaiter(this, void 0, void 0, function* () {
@@ -51,9 +65,46 @@ class App extends React.Component {
                     break;
             }
         });
+        // when tab becomes active
+        window.addEventListener("focus", () => __awaiter(this, void 0, void 0, function* () {
+            if (!this.state.preAuthToken) {
+                return;
+            }
+            try {
+                const formData = new FormData();
+                formData.append("token", this.state.preAuthToken);
+                const res = yield ClientApi.postRequest("/v1/get-validated-pre-auth-token", formData);
+                const auth = new Auth(res.data.authToken, res.data.uid);
+                this.setState({ auth, preAuthToken: undefined });
+            }
+            catch (error) {
+                this.setState({ errorMessage: error.message });
+            }
+        }));
     }
     render() {
-        return (React.createElement(FigmaPluginView, { title: "Frames to import", style: { height: "100%", cursor: "default" }, itemsView: React.createElement(FigmaPluginItem, { title: "test", detail: "another" }), callToAction: "Add selected frames", callToActionOnClick: this.onAdd }));
+        if (this.state.auth) {
+            return (React.createElement(FigmaPluginView, { title: "Frames to import", style: { height: "100%", cursor: "default" }, itemsView: React.createElement(FigmaPluginItem, { title: "test", detail: "another" }), callToAction: "Add selected frames", callToActionOnClick: this.onAdd }));
+        }
+        return (React.createElement(React.Fragment, null,
+            React.createElement(FigmaPluginLoginView, { logoView: React.createElement("img", { src: require("./logotype.svg"), style: { height: 26 } }), signinOnClick: () => __awaiter(this, void 0, void 0, function* () {
+                    try {
+                        const res = yield ClientApi.postRequest("/v1/get-pre-auth-token");
+                        const preAuthToken = res.data.token;
+                        this.setState({ preAuthToken });
+                        // open new tab to https://dev.aspect.app/auth/figma-plugin?preAuthToken=preAuthToken
+                        const baseUrl = App.env === "development"
+                            ? "http://localhost:3000"
+                            : "https://dev.aspect.app";
+                        const authUrl = `${baseUrl}/auth/figma-plugin?preAuthToken=${preAuthToken}`;
+                        window.open(authUrl, "_blank");
+                    }
+                    catch (err) {
+                        this.setState({ errorMessage: err.message });
+                    }
+                }) }),
+            this.state.errorMessage && (React.createElement("div", { className: "error-message" }, this.state.errorMessage))));
     }
 }
+App.env = "development";
 ReactDOM.render(React.createElement(App, null), document.getElementById("react-page"));

@@ -7,17 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import * as path from "path-browserify";
-class ClientApi {
+import { App } from "./ui";
+export class ClientApi {
     static get apiBaseUrl() {
-        return process.env.REACT_NODE_ENV === "development"
-            ? "/"
+        return App.env === "development"
+            ? "http://localhost"
             : "https://dev.aspect.app";
     }
     static apiUrl(endpoint) {
-        return process.env.REACT_NODE_ENV === "development"
-            ? path.join(ClientApi.apiBaseUrl, endpoint)
-            : new URL(endpoint, ClientApi.apiBaseUrl).href;
+        return new URL(endpoint, ClientApi.apiBaseUrl).href;
     }
     static postRequest(endpoint, body = new FormData(), responseType = "json") {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,6 +27,35 @@ class ClientApi {
                     method: "POST",
                     body,
                 });
+                if (response.status === 200) {
+                    switch (responseType) {
+                        case "text":
+                            return response.text();
+                        case "zip":
+                            return response.blob();
+                        default:
+                            return response.json();
+                    }
+                }
+                else if (response.status === 500) {
+                    try {
+                        const json = yield response.json();
+                        return Promise.reject(json);
+                    }
+                    catch (_a) {
+                        return Promise.reject(response.statusText);
+                    }
+                }
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    static getRequest(endpoint, responseType = "json") {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield fetch(ClientApi.apiUrl(endpoint));
                 if (response.status === 200) {
                     switch (responseType) {
                         case "text":

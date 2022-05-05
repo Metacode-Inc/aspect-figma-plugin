@@ -1,16 +1,14 @@
-import * as path from "path-browserify";
+import { App } from "./ui";
 
-class ClientApi {
+export class ClientApi {
   static get apiBaseUrl() {
-    return process.env.REACT_NODE_ENV === "development"
-      ? "/"
+    return App.env === "development"
+      ? "http://localhost"
       : "https://dev.aspect.app";
   }
 
   static apiUrl(endpoint: string) {
-    return process.env.REACT_NODE_ENV === "development"
-      ? path.join(ClientApi.apiBaseUrl, endpoint)
-      : new URL(endpoint, ClientApi.apiBaseUrl).href;
+    return new URL(endpoint, ClientApi.apiBaseUrl).href;
   }
 
   static async postRequest(
@@ -26,6 +24,35 @@ class ClientApi {
         method: "POST",
         body,
       });
+      if (response.status === 200) {
+        switch (responseType) {
+          case "text":
+            return response.text();
+          case "zip":
+            return response.blob();
+
+          default:
+            return response.json();
+        }
+      } else if (response.status === 500) {
+        try {
+          const json = await response.json();
+          return Promise.reject(json);
+        } catch {
+          return Promise.reject(response.statusText);
+        }
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getRequest(
+    endpoint: string,
+    responseType: "json" | "text" | "zip" = "json"
+  ) {
+    try {
+      const response = await fetch(ClientApi.apiUrl(endpoint));
       if (response.status === 200) {
         switch (responseType) {
           case "text":

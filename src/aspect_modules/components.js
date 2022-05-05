@@ -2687,6 +2687,85 @@ export class FigmaImportSettingsView extends React.Component {
     }
     FigmaImportSettingsView.State = State;
 })(FigmaImportSettingsView || (FigmaImportSettingsView = {}));
+export class FigmaPluginErrorView extends React.Component {
+    constructor(props) {
+        super(props);
+        this._isMounted = false;
+        this.handleMouseUp = (e) => {
+            if (!this._isMounted) {
+                return;
+            }
+            this.setState({
+                isPressed: false,
+            });
+        };
+        this.state = new FigmaPluginErrorView.State();
+    }
+    get customState() {
+        return 'default';
+    }
+    componentDidMount() {
+        this._isMounted = true;
+        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+        document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+    }
+    render() {
+        var _a, _b, _c, _d, _e, _f;
+        switch (this.customState) {
+            default:
+                return (React.createElement(HStack, { onMouseEnter: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseEnter && this.props.onMouseEnter(e);
+                        this.setState({
+                            isHovered: true,
+                        });
+                    }, onMouseLeave: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseLeave && this.props.onMouseLeave(e);
+                        this.setState({
+                            isHovered: false,
+                        });
+                    }, onMouseDown: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseDown && this.props.onMouseDown(e);
+                        this.setState({
+                            isPressed: true,
+                        });
+                    }, onMouseUp: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseUp && this.props.onMouseUp(e);
+                        this.setState({
+                            isPressed: false,
+                        });
+                    }, onClick: (_a = this.props.onClick) === null || _a === void 0 ? void 0 : _a.bind(this), onDoubleClick: (_b = this.props.onDoubleClick) === null || _b === void 0 ? void 0 : _b.bind(this), onChange: (_c = this.props.onChange) === null || _c === void 0 ? void 0 : _c.bind(this), onInput: (_d = this.props.onInput) === null || _d === void 0 ? void 0 : _d.bind(this), onFocus: (_e = this.props.onFocus) === null || _e === void 0 ? void 0 : _e.bind(this), onBlur: (_f = this.props.onBlur) === null || _f === void 0 ? void 0 : _f.bind(this), children: React.createElement(React.Fragment, null,
+                        React.createElement("span", { className: "aspect-span", children: this.props.message, style: {
+                                color: '#BA3D3D',
+                                fontSize: 12,
+                                fontWeight: 500
+                            } })), style: Object.assign({ backgroundColor: '#fff', border: '1px solid #BA3D3D', borderRadius: 4, padding: '8px 12px' }, this.props.style), id: this.props.id }));
+        }
+    }
+}
+(function (FigmaPluginErrorView) {
+    class State {
+        constructor(isHovered = false, isPressed = false) {
+            this.isHovered = isHovered;
+            this.isPressed = isPressed;
+        }
+    }
+    FigmaPluginErrorView.State = State;
+})(FigmaPluginErrorView || (FigmaPluginErrorView = {}));
 export class FigmaPluginItem extends React.Component {
     constructor(props) {
         super(props);
@@ -2980,6 +3059,130 @@ export class FigmaPluginItem extends React.Component {
     }
     FigmaPluginItem.State = State;
 })(FigmaPluginItem || (FigmaPluginItem = {}));
+export class FigmaPluginLoginView extends React.Component {
+    constructor(props) {
+        super(props);
+        this._isMounted = false;
+        this.handleMouseUp = (e) => {
+            if (!this._isMounted) {
+                return;
+            }
+            this.setState({
+                isPressed: false,
+            });
+        };
+        this.state = new FigmaPluginLoginView.State();
+    }
+    get customState() {
+        return 'default';
+    }
+    componentDidMount() {
+        this._isMounted = true;
+        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+        document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+    }
+    render() {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        switch (this.customState) {
+            default:
+                return (React.createElement("div", { className: "aspect-div", onMouseEnter: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseEnter && this.props.onMouseEnter(e);
+                        this.setState({
+                            isHovered: true,
+                        });
+                    }, onMouseLeave: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseLeave && this.props.onMouseLeave(e);
+                        this.setState({
+                            isHovered: false,
+                        });
+                    }, onMouseDown: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseDown && this.props.onMouseDown(e);
+                        this.setState({
+                            isPressed: true,
+                        });
+                    }, onMouseUp: (e) => {
+                        if (!this._isMounted) {
+                            return;
+                        }
+                        this.props.onMouseUp && this.props.onMouseUp(e);
+                        this.setState({
+                            isPressed: false,
+                        });
+                    }, onClick: (_a = this.props.onClick) === null || _a === void 0 ? void 0 : _a.bind(this), onDoubleClick: (_b = this.props.onDoubleClick) === null || _b === void 0 ? void 0 : _b.bind(this), onChange: (_c = this.props.onChange) === null || _c === void 0 ? void 0 : _c.bind(this), onInput: (_d = this.props.onInput) === null || _d === void 0 ? void 0 : _d.bind(this), onFocus: (_e = this.props.onFocus) === null || _e === void 0 ? void 0 : _e.bind(this), onBlur: (_f = this.props.onBlur) === null || _f === void 0 ? void 0 : _f.bind(this), children: React.createElement(React.Fragment, null,
+                        React.createElement("div", { className: "aspect-div" }),
+                        React.createElement(VStack, { children: React.createElement(React.Fragment, null,
+                                React.createElement("div", { className: "aspect-div", children: this.props.logoView }),
+                                React.createElement("div", { className: "aspect-div", onClick: (_g = this.props.signinOnClick) === null || _g === void 0 ? void 0 : _g.bind(this), children: React.createElement(React.Fragment, null,
+                                        React.createElement(SimpleButton, { children: React.createElement(React.Fragment, null,
+                                                React.createElement("span", { className: "aspect-span", children: "Login", style: {
+                                                        color: 'rgba(255,255,255,1)',
+                                                        fontSize: 12,
+                                                        fontWeight: 500,
+                                                        letterSpacing: 0,
+                                                        textAlign: 'center'
+                                                    } })), style: {
+                                                height: '100%',
+                                                justifyContent: 'center',
+                                                width: '100%'
+                                            } })), style: {
+                                        alignItems: 'center',
+                                        backgroundColor: '#2c2c2c',
+                                        display: 'flex',
+                                        gridAutoFlow: 'column',
+                                        justifyContent: 'center',
+                                        minHeight: 32,
+                                        width: 160
+                                    } })), style: {
+                                gap: 12,
+                                justifyItems: 'center',
+                                paddingBottom: 16,
+                                width: '100%'
+                            } }),
+                        React.createElement("div", { className: "aspect-div", onClick: (_h = this.props.signupOnClick) === null || _h === void 0 ? void 0 : _h.bind(this), children: React.createElement(React.Fragment, null,
+                                React.createElement("span", { className: "aspect-span", children: "Don\u2019t have an account?", style: {
+                                        color: 'rgba(0,0,0,1)',
+                                        fontSize: 12,
+                                        fontWeight: 400,
+                                        letterSpacing: 0,
+                                        textAlign: 'left'
+                                    } }),
+                                React.createElement("span", { className: "aspect-span", children: "Sign up", style: {
+                                        color: 'rgba(0,0,0,1)',
+                                        fontSize: 12,
+                                        fontWeight: 500,
+                                        letterSpacing: 0,
+                                        textAlign: 'left'
+                                    } })), style: {
+                                alignItems: 'center',
+                                display: 'grid',
+                                gridAutoFlow: 'column',
+                                justifyContent: 'space-between',
+                                width: 180
+                            } })), style: Object.assign({ alignContent: 'space-between', backgroundColor: 'rgba(255,255,255,1)', cursor: 'default', display: 'grid', gap: 24, height: '100%', justifyItems: 'center', padding: 24, width: 276 }, this.props.style), id: this.props.id }));
+        }
+    }
+}
+(function (FigmaPluginLoginView) {
+    class State {
+        constructor(isHovered = false, isPressed = false) {
+            this.isHovered = isHovered;
+            this.isPressed = isPressed;
+        }
+    }
+    FigmaPluginLoginView.State = State;
+})(FigmaPluginLoginView || (FigmaPluginLoginView = {}));
 export class FigmaPluginView extends React.Component {
     constructor(props) {
         super(props);

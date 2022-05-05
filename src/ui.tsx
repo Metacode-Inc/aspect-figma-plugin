@@ -1,11 +1,35 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { FigmaPluginItem, FigmaPluginView } from "./aspect_modules/components";
+import {
+  FigmaPluginItem,
+  FigmaPluginLoginView,
+  FigmaPluginView,
+} from "./aspect_modules/components";
+import { ClientApi } from "./ClientApi";
 import "./ui.css";
 
 declare function require(path: string): any;
 
-class App extends React.Component {
+class Auth {
+  constructor(private readonly token: string, uid: string) {}
+}
+
+class State {
+  constructor(
+    public preAuthToken?: string,
+    public auth?: Auth,
+    public errorMessage?: string
+  ) {}
+}
+
+export class App extends React.Component<any, State> {
+  static env = "development";
+
+  constructor(props: any) {
+    super(props);
+    this.state = new State();
+  }
+
   onAdd = () => {
     parent.postMessage({ pluginMessage: { type: "addSelectedFrames" } }, "*");
   };
@@ -45,17 +69,67 @@ class App extends React.Component {
           break;
       }
     };
+
+    // when tab becomes active
+    window.addEventListener("focus", async () => {
+      if (!this.state.preAuthToken) {
+        return;
+      }
+      try {
+        const formData = new FormData();
+        formData.append("token", this.state.preAuthToken);
+        const res = await ClientApi.postRequest(
+          "/v1/get-validated-pre-auth-token",
+          formData
+        );
+        const auth = new Auth(res.data.authToken, res.data.uid);
+        this.setState({ auth, preAuthToken: undefined });
+      } catch (error) {
+        this.setState({ errorMessage: error.message });
+      }
+    });
   }
 
   render() {
+    if (this.state.auth) {
+      return (
+        <FigmaPluginView
+          title="Frames to import"
+          style={{ height: "100%", cursor: "default" }}
+          itemsView={<FigmaPluginItem title="test" detail="another" />}
+          callToAction="Add selected frames"
+          callToActionOnClick={this.onAdd}
+        />
+      );
+    }
     return (
-      <FigmaPluginView
-        title="Frames to import"
-        style={{ height: "100%", cursor: "default" }}
-        itemsView={<FigmaPluginItem title="test" detail="another" />}
-        callToAction="Add selected frames"
-        callToActionOnClick={this.onAdd}
-      />
+      <>
+        <FigmaPluginLoginView
+          logoView={
+            <img src={require("./logotype.svg")} style={{ height: 26 }} />
+          }
+          signinOnClick={async () => {
+            try {
+              const res = await ClientApi.postRequest("/v1/get-pre-auth-token");
+              const preAuthToken = res.data.token;
+              this.setState({ preAuthToken });
+
+              // open new tab to https://dev.aspect.app/auth/figma-plugin?preAuthToken=preAuthToken
+              const baseUrl =
+                App.env === "development"
+                  ? "http://localhost:3000"
+                  : "https://dev.aspect.app";
+              const authUrl = `${baseUrl}/auth/figma-plugin?preAuthToken=${preAuthToken}`;
+              window.open(authUrl, "_blank");
+            } catch (err) {
+              this.setState({ errorMessage: err.message });
+            }
+          }}
+        />
+        {this.state.errorMessage && (
+          <div className="error-message">{this.state.errorMessage}</div>
+        )}
+      </>
     );
   }
 }

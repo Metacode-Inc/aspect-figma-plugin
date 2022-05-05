@@ -3572,6 +3572,130 @@ framesOnClick?: (e: any) => any;
   }
 }
 
+export class FigmaPluginErrorView extends React.Component<
+FigmaPluginErrorView.Props,
+FigmaPluginErrorView.State
+> {
+  _isMounted = false;
+  get customState() {
+    
+    return 'default';
+  }
+
+  constructor(props: FigmaPluginErrorView.Props) {
+    super(props);
+    this.state = new FigmaPluginErrorView.State();
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+  
+  render() {
+    switch (this.customState) {
+      default:
+return (
+<HStack onMouseEnter={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={
+<><span className="aspect-span" children={this.props.message} style={{
+color: '#BA3D3D',
+fontSize: 12,
+fontWeight: 500
+}} /></>
+} style={{
+backgroundColor: '#fff',
+border: '1px solid #BA3D3D',
+borderRadius: 4,
+padding: '8px 12px'
+,
+...this.props.style}} id={this.props.id} />
+)
+    }
+  }
+
+  handleMouseUp = (e: any) => {
+    if (!this._isMounted) {
+      return;
+    }
+    this.setState({
+      isPressed: false,
+    });
+  }
+}
+
+export namespace FigmaPluginErrorView {
+  export interface Props {
+    id?: string;
+    key?: string;
+    style?: React.CSSProperties;
+    onMouseEnter?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+name?: string;
+message?: string;
+  }
+
+  export class State {
+    constructor(
+      public isHovered: boolean = false,
+      public isPressed: boolean = false,
+    ) {}
+  }
+}
+
 export class FigmaPluginItem extends React.Component<
 FigmaPluginItem.Props,
 FigmaPluginItem.State
@@ -3979,6 +4103,188 @@ detail?: string;
 accessoryIcon?: JSX.Element | JSX.Element[] | null;
 accessoryIconOnClick?: (e: any) => any;
 isSelected?: boolean;
+  }
+
+  export class State {
+    constructor(
+      public isHovered: boolean = false,
+      public isPressed: boolean = false,
+    ) {}
+  }
+}
+
+export class FigmaPluginLoginView extends React.Component<
+FigmaPluginLoginView.Props,
+FigmaPluginLoginView.State
+> {
+  _isMounted = false;
+  get customState() {
+    
+    return 'default';
+  }
+
+  constructor(props: FigmaPluginLoginView.Props) {
+    super(props);
+    this.state = new FigmaPluginLoginView.State();
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+  
+  render() {
+    switch (this.customState) {
+      default:
+return (
+<div className="aspect-div" onMouseEnter={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={
+<><div className="aspect-div" />
+<VStack children={
+<><div className="aspect-div" children={this.props.logoView} />
+<div className="aspect-div" onClick={this.props.signinOnClick?.bind(this)}
+children={
+<><SimpleButton children={
+<><span className="aspect-span" children="Login" style={{
+color: 'rgba(255,255,255,1)',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'center'
+}} /></>
+} style={{
+height: '100%',
+justifyContent: 'center',
+width: '100%'
+}} /></>
+} style={{
+alignItems: 'center',
+backgroundColor: '#2c2c2c',
+display: 'flex',
+gridAutoFlow: 'column',
+justifyContent: 'center',
+minHeight: 32,
+width: 160
+}} /></>
+} style={{
+gap: 12,
+justifyItems: 'center',
+paddingBottom: 16,
+width: '100%'
+}} />
+<div className="aspect-div" onClick={this.props.signupOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children="Don’t have an account?" style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 400,
+letterSpacing: 0,
+textAlign: 'left'
+}} />
+<span className="aspect-span" children="Sign up" style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'left'
+}} /></>
+} style={{
+alignItems: 'center',
+display: 'grid',
+gridAutoFlow: 'column',
+justifyContent: 'space-between',
+width: 180
+}} /></>
+} style={{
+alignContent: 'space-between',
+backgroundColor: 'rgba(255,255,255,1)',
+cursor: 'default',
+display: 'grid',
+gap: 24,
+height: '100%',
+justifyItems: 'center',
+padding: 24,
+width: 276
+,
+...this.props.style}} id={this.props.id} />
+)
+    }
+  }
+
+  handleMouseUp = (e: any) => {
+    if (!this._isMounted) {
+      return;
+    }
+    this.setState({
+      isPressed: false,
+    });
+  }
+}
+
+export namespace FigmaPluginLoginView {
+  export interface Props {
+    id?: string;
+    key?: string;
+    style?: React.CSSProperties;
+    onMouseEnter?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+name?: string;
+signinOnClick?: (e: any) => any;
+logoView?: JSX.Element | JSX.Element[] | null;
+signupOnClick?: (e: any) => any;
   }
 
   export class State {
