@@ -1,13 +1,33 @@
+import { DesignNode, Rect } from "./Data";
+
 figma.showUI(__html__);
 
 figma.ui.onmessage = async (msg) => {
   try {
     switch (msg.type) {
-      case "addSelectedFrames":
+      case "getSelectedNodes":
         // send selected frames to the plugin
         figma.ui.postMessage({
-          type: "addSelectedFrames",
+          type: "getSelectedNodes",
           frames: figma.currentPage.selection.filter((x) => x.type === "FRAME"),
+        });
+        (
+          figma.currentPage.selection.filter(
+            (x) => x.type === "FRAME"
+          )[0] as FrameNode
+        ).findAll((node) => {
+          const printable = new DesignNode(
+            node.id,
+            node.name,
+            node.type,
+            new Rect(node.x, node.y, node.width, node.height),
+            undefined,
+            undefined,
+            (node as any).fills ? (node as any).fills : undefined
+          );
+          console.log(JSON.stringify(printable));
+
+          return true;
         });
         break;
       case "getSavedAuthData":

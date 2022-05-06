@@ -1566,7 +1566,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
 onFilterChange?: (e: any) => any;
 title?: string;
 isExpanded?: boolean;
@@ -1953,7 +1953,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 isCollapsed?: boolean;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -2299,7 +2299,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 title?: string;
-accessoryButtonImage?: JSX.Element | JSX.Element[] | null;
+accessoryButtonImage?: React.ReactNode;
 onAccessoryButtonClick?: (e: any) => any;
 isSelected?: boolean;
   }
@@ -2802,7 +2802,7 @@ onBlur?: (e: any) => any;
 name?: string;
 message?: string;
 doneButtonOnClick?: (e: any) => any;
-logoView?: JSX.Element | JSX.Element[] | null;
+logoView?: React.ReactNode;
 isLoading?: boolean;
 callToAction?: string;
   }
@@ -3407,11 +3407,11 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-listItemViews?: JSX.Element | JSX.Element[] | null;
+listItemViews?: React.ReactNode;
 title?: string;
 detail?: string;
 isNestedList?: boolean;
-headerBackIcon?: JSX.Element | JSX.Element[] | null;
+headerBackIcon?: React.ReactNode;
   }
 
   export class State {
@@ -4100,7 +4100,7 @@ onBlur?: (e: any) => any;
 name?: string;
 title?: string;
 detail?: string;
-accessoryIcon?: JSX.Element | JSX.Element[] | null;
+accessoryIcon?: React.ReactNode;
 accessoryIconOnClick?: (e: any) => any;
 isSelected?: boolean;
   }
@@ -4193,7 +4193,7 @@ children={
 <><span className="aspect-span" children="Login" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 12,
-fontWeight: 500,
+fontWeight: 600,
 letterSpacing: 0,
 textAlign: 'center'
 }} /></>
@@ -4283,7 +4283,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 signinOnClick?: (e: any) => any;
-logoView?: JSX.Element | JSX.Element[] | null;
+logoView?: React.ReactNode;
 signupOnClick?: (e: any) => any;
   }
 
@@ -4369,47 +4369,79 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><HStack children={
 <><span className="aspect-span" children={this.props.title} style={{
 color: 'rgba(0,0,0,1)',
-fontSize: 11,
+fontSize: 10,
+fontWeight: 600,
+letterSpacing: 0,
+textAlign: 'right'
+}} />
+<SimpleButton onClick={this.props.signOutOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children="Sign Out" style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
 fontWeight: 500,
 letterSpacing: 0,
 textAlign: 'right'
 }} /></>
 } style={{
+cursor: 'default',
+padding: '0 12px'
+}} /></>
+} style={{
 boxShadow: '0 1px 0 0 rgba(0,0,0,0.1)',
-height: 30,
 justifyContent: 'space-between',
-padding: '0 16px',
+padding: '2px 0',
+paddingLeft: 12,
+paddingRight: 2,
 width: '100%',
 zIndex: 1
 }} />
 <ScrollableList children={this.props.itemsView} style={{
+position: 'relative',
 width: '100%'
+}} />
+<div className="aspect-div" children={
+<><SimpleButton onClick={this.props.secondaryActionOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children={this.props.secondaryActionTitle} style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+cursor: 'default',
+minHeight: 28,
+padding: '0 12px'
 }} />
 <div className="aspect-div" children={
 <><SimpleButton onClick={this.props.callToActionOnClick?.bind(this)}
 children={
 <><span className="aspect-span" children={this.props.callToAction} style={{
-color: 'rgba(0,0,0,1)',
+color: 'white',
 fontSize: 12,
-fontWeight: 400,
+fontWeight: 500,
 letterSpacing: 0,
 textAlign: 'right'
 }} /></>
 } style={{
-border: '1px solid #ddd',
 cursor: 'default',
-height: 28,
+minHeight: 28,
 padding: '0 12px'
+}} /></>
+} style={{
+backgroundColor: '#06f'
 }} /></>
 } style={{
 alignItems: 'center',
 backgroundColor: 'rgba(255,255,255,1)',
 boxShadow: '0 -1px 0 0 rgba(0,0,0,0.1)',
 display: 'grid',
+gap: 8,
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
-minHeight: 46,
-padding: '0 16px',
+padding: '6px 12px 7px',
 width: '100%'
 }} /></>
 } style={{
@@ -4452,10 +4484,13 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-itemsView?: JSX.Element | JSX.Element[] | null;
+itemsView?: React.ReactNode;
 title?: string;
 callToActionOnClick?: (e: any) => any;
 callToAction?: string;
+secondaryActionTitle?: string;
+secondaryActionOnClick?: (e: any) => any;
+signOutOnClick?: (e: any) => any;
   }
 
   export class State {
@@ -4682,10 +4717,10 @@ onBlur?: (e: any) => any;
 name?: string;
 inputOnChange?: (e: any) => any;
 title?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
 isExpanded?: boolean;
 accessoryButtonOnClick?: (e: any) => any;
-accessoryButtonIcon?: JSX.Element | JSX.Element[] | null;
+accessoryButtonIcon?: React.ReactNode;
 detail?: string;
 inputDefaultValue?: string;
   }
@@ -4807,7 +4842,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -5428,10 +5463,10 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-headerLogoView?: JSX.Element | JSX.Element[] | null;
+headerLogoView?: React.ReactNode;
 onLoginClick?: (e: any) => any;
 onSignupClick?: (e: any) => any;
-playView?: JSX.Element | JSX.Element[] | null;
+playView?: React.ReactNode;
 playViewOnClick?: (e: any) => any;
 size?: string;
   }
@@ -5829,7 +5864,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -6075,7 +6110,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -6302,7 +6337,7 @@ onBlur?: (e: any) => any;
 name?: string;
 onClickClose?: (e: any) => any;
 onClickContent?: (e: any) => any;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
 isScrollable?: boolean;
   }
 
@@ -6889,7 +6924,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -7087,7 +7122,7 @@ onBlur?: (e: any) => any;
 name?: string;
 title?: string;
 onSettingsClick?: (e: any) => any;
-buttonIcon?: JSX.Element | JSX.Element[] | null;
+buttonIcon?: React.ReactNode;
 isEditing?: boolean;
   }
 
@@ -7305,9 +7340,9 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 title?: string;
-accessoryView?: JSX.Element | JSX.Element[] | null;
+accessoryView?: React.ReactNode;
 isExpanded?: boolean;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
 inputOnChange?: (e: any) => any;
   }
 
@@ -7427,7 +7462,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -8337,7 +8372,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {
@@ -8771,7 +8806,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 title?: string;
-accessoryView?: JSX.Element | JSX.Element[] | null;
+accessoryView?: React.ReactNode;
 isSelected?: boolean;
   }
 
@@ -8972,7 +9007,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-accessoryView?: JSX.Element | JSX.Element[] | null;
+accessoryView?: React.ReactNode;
 title?: string;
   }
 
@@ -9109,7 +9144,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 title?: string;
-accesoryView?: JSX.Element | JSX.Element[] | null;
+accesoryView?: React.ReactNode;
   }
 
   export class State {
@@ -9407,7 +9442,7 @@ onInput?: (e: any) => any;
 onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
-children?: JSX.Element | JSX.Element[] | null;
+children?: React.ReactNode;
   }
 
   export class State {

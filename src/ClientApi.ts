@@ -1,12 +1,12 @@
-import { App } from "./ui";
+import { FigmaImportPreferences } from "./Data";
 
 export class ClientApi {
+  static env = "development";
   static publicFirebaseApiKey = "AIzaSyA6k-XDZwLIjGfCuXgd9L7nna1AWgx1AN4";
-  static get apiBaseUrl() {
-    return App.env === "development"
+  static apiBaseUrl =
+    ClientApi.env === "development"
       ? "http://localhost"
       : "https://dev.aspect.app";
-  }
 
   static apiUrl(endpoint: string) {
     return new URL(endpoint, ClientApi.apiBaseUrl).href;
@@ -131,7 +131,7 @@ export class ClientApi {
 
   static async refreshIdToken(refreshToken: string) {
     try {
-      return (
+      const data = (
         await ClientApi.postRequest(
           "https://securetoken.googleapis.com/v1/token?key=" +
             ClientApi.publicFirebaseApiKey,
@@ -142,6 +142,11 @@ export class ClientApi {
           }
         )
       ).data;
+      return {
+        idToken: data.id_token,
+        expiresIn: data.expires_in,
+        refreshToken: data.refresh_token,
+      };
     } catch (error) {
       console.log(error);
       throw error;
@@ -164,10 +169,43 @@ export class ClientApi {
     public user: any
   ) {}
 
+  // user
+
   async getUser() {
     const data = new FormData();
     data.append("idToken", this.idToken);
     return (await ClientApi.postRequest(ClientApi.apiUrl("/v1/user"), data))
       .data;
+  }
+
+  async getImportPreferences() {
+    try {
+      const data = new FormData();
+      data.append("idToken", this.idToken);
+      return (
+        await ClientApi.postRequest(
+          ClientApi.apiUrl("/v1/get-import-preferences"),
+          data
+        )
+      ).data as FigmaImportPreferences;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateImportPreferences(preferences: FigmaImportPreferences) {
+    try {
+      const data = new FormData();
+      data.append("idToken", this.idToken);
+      data.append("preferences", JSON.stringify(preferences));
+      return (
+        await ClientApi.postRequest(
+          ClientApi.apiUrl("/v1/update-import-preferences"),
+          data
+        )
+      ).data;
+    } catch (error) {
+      throw error;
+    }
   }
 }
