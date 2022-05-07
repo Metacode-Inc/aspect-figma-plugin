@@ -5,29 +5,32 @@ figma.showUI(__html__);
 figma.ui.onmessage = async (msg) => {
   try {
     switch (msg.type) {
-      case "getSelectedNodes":
-        // send selected frames to the plugin
+      case "getFramesToExport":
         figma.ui.postMessage({
-          type: "getSelectedNodes",
-          frames: figma.currentPage.selection.filter((x) => x.type === "FRAME"),
+          type: "getFramesToExport",
+          frames: getFramesToExport(),
         });
-        (
-          figma.currentPage.selection.filter(
-            (x) => x.type === "FRAME"
-          )[0] as FrameNode
-        ).findAll((node) => {
-          const printable = new DesignNode(
-            node.id,
-            node.name,
-            node.type,
-            new Rect(node.x, node.y, node.width, node.height),
-            undefined,
-            undefined,
-            (node as any).fills ? (node as any).fills : undefined
-          );
-          console.log(JSON.stringify(printable));
-
-          return true;
+        break;
+      case "addSelectedFramesToExport":
+        figma.currentPage.selection
+          .filter((x) => x.type === "FRAME")
+          .forEach((node) => {
+            node.setPluginData("shouldExport", "true");
+          });
+        figma.ui.postMessage({
+          type: "getFramesToExport",
+          frames: getFramesToExport(),
+        });
+        break;
+      case "removeFrameFromExport":
+        figma.root
+          .findAll((node) => node.id === msg.id)
+          .forEach((node) => {
+            node.setPluginData("shouldExport", "");
+          });
+        figma.ui.postMessage({
+          type: "getFramesToExport",
+          frames: getFramesToExport(),
         });
         break;
       case "getSavedAuthData":
@@ -51,3 +54,45 @@ figma.ui.onmessage = async (msg) => {
     console.log("ui.onmessage", error);
   }
 };
+
+figma.on("selectionchange", () => {
+  console.log("selectionchange");
+
+  figma.ui.postMessage({
+    type: "selectionChange",
+    frames: figma.currentPage.selection
+      .filter((x) => x.type === "FRAME")
+      .map((frame) => getNodeData(frame)),
+  });
+});
+
+function getNodeData(node: any) {
+  const data = new DesignNode(
+    node.id,
+    node.name,
+    node.type,
+    new Rect(node.x, node.y, node.width, node.height),
+    undefined,
+    undefined,
+    (node as any).fills ? (node as any).fills : undefined
+  );
+  if (node.children) {
+    node.children.forEach((child) => {
+      data.children.push(getNodeData(child));
+    });
+  }
+  return data;
+}
+
+function getFramesToExport() {
+  const frames: DesignNode[] = [];
+  figma.root
+    .findAll(
+      (node) =>
+        node.type === "FRAME" && node.getPluginData("shouldExport") === "true"
+    )
+    .forEach((frame) => {
+      frames.push(getNodeData(frame));
+    });
+  return frames;
+}

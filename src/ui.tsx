@@ -6,21 +6,17 @@ import {
   FigmaPluginView,
 } from "./aspect_modules/components";
 import { ClientApi } from "./ClientApi";
-import { FigmaImportPreferences } from "./Data";
+import { DesignNode, FigmaImportPreferences } from "./Data";
 import "./ui.css";
 
 declare function require(path: string): any;
-
-// class Auth {
-//   constructor(public token: string, public uid: string,) {}
-// }
 
 class State {
   constructor(
     public preAuthToken?: string,
     public api?: ClientApi,
-    public importPreferences?: FigmaImportPreferences,
-    public nativeFrames: { [id: string]: FrameNode } = {},
+    public framesToExport: DesignNode[] = [],
+    public selectedFrames: DesignNode[] = [],
     public errorMessage?: string
   ) {}
 }
@@ -31,9 +27,23 @@ class App extends React.Component<any, State> {
     this.state = new State();
   }
 
-  onAdd = () => {
-    parent.postMessage({ pluginMessage: { type: "getSelectedNodes" } }, "*");
-  };
+  addSelectedFramesToExport() {
+    parent.postMessage(
+      { pluginMessage: { type: "addSelectedFramesToExport" } },
+      "*"
+    );
+  }
+
+  removeFrameFromExport(frame: DesignNode) {
+    parent.postMessage(
+      { pluginMessage: { type: "removeFrameFromExport", id: frame.id } },
+      "*"
+    );
+  }
+
+  getFramesToExport() {
+    parent.postMessage({ pluginMessage: { type: "getFramesToExport" } }, "*");
+  }
 
   get pluginSource() {
     return navigator.userAgent.toLowerCase().includes("electron/")
@@ -42,7 +52,7 @@ class App extends React.Component<any, State> {
   }
 
   get sortedFrames() {
-    return Object.values(this.state.nativeFrames).sort((a, b) =>
+    return Object.values(this.state.framesToExport).sort((a, b) =>
       a.name.localeCompare(b.name)
     );
   }
@@ -50,15 +60,26 @@ class App extends React.Component<any, State> {
   async componentDidMount() {
     window.onmessage = async (event) => {
       switch (event.data.pluginMessage.type) {
-        case "getSelectedNodes":
-          (() => {
-            const frames: FrameNode[] = event.data.pluginMessage.frames;
-          })();
+        case "selectionChange":
+          this.setState({ selectedFrames: event.data.pluginMessage.frames });
+          break;
+        case "addSelectedFramesToExport":
+          this.setState({
+            framesToExport: [
+              ...this.state.framesToExport,
+              ...this.state.selectedFrames.filter(
+                (frame) =>
+                  !this.state.framesToExport.some((f) => f.id === frame.id)
+              ),
+            ],
+          });
+          break;
+        case "getFramesToExport":
+          this.setState({ framesToExport: event.data.pluginMessage.frames });
           break;
         case "getSavedAuthData":
-          (() => {
+          (async () => {
             this.setupPostInitListeners();
-
             // get and validate auth token
             const { idToken, refreshToken, expiresIn } =
               event.data.pluginMessage;
@@ -66,31 +87,13 @@ class App extends React.Component<any, State> {
               return;
             }
 
-            ClientApi.getUser(idToken)
-              .then((user) => {
-                this.setState(
-                  {
-                    api: new ClientApi(idToken, refreshToken, expiresIn, user),
-                    preAuthToken: undefined,
-                  },
-                  async () => {
-                    try {
-                      this.setState({
-                        importPreferences:
-                          await this.state.api.getImportPreferences(),
-                      });
-                    } catch (error) {
-                      this.setState({ errorMessage: error.message });
-                    }
-                  }
-                );
-              })
-              .catch((err) => {
-                console.log(err);
-                this.setState({
-                  errorMessage: typeof err === "string" ? err : err.message,
-                });
+            try {
+              await this.setupAuthedData(idToken, refreshToken, expiresIn);
+            } catch (err) {
+              this.setState({
+                errorMessage: typeof err === "string" ? err : err.message,
               });
+            }
           })();
           break;
 
@@ -103,6 +106,29 @@ class App extends React.Component<any, State> {
     parent.postMessage({ pluginMessage: { type: "getSavedAuthData" } }, "*");
   }
 
+  async setupAuthedData(
+    idToken: string,
+    refreshToken: string,
+    expiresIn: number
+  ) {
+    try {
+      const user = await ClientApi.getUser(idToken);
+      this.setState(
+        {
+          api: new ClientApi(idToken, refreshToken, expiresIn, user),
+          preAuthToken: undefined,
+        },
+        () => {
+          this.getFramesToExport();
+        }
+      );
+    } catch (err) {
+      this.setState({
+        errorMessage: typeof err === "string" ? err : err.message,
+      });
+    }
+  }
+
   setupPostInitListeners() {
     // when tab becomes active
     window.addEventListener("focus", async () => {
@@ -112,9 +138,7 @@ class App extends React.Component<any, State> {
         }
 
         const authToken = await ClientApi.getAuthToken(this.state.preAuthToken);
-        this.setState({
-          preAuthToken: undefined,
-        });
+        this.setState({ preAuthToken: undefined });
 
         const { idToken, refreshToken, expiresIn } =
           await ClientApi.getIdTokenFromAuthToken(authToken);
@@ -129,25 +153,7 @@ class App extends React.Component<any, State> {
           },
           "*"
         );
-
-        const user = await ClientApi.getUser(idToken);
-
-        this.setState(
-          {
-            api: new ClientApi(idToken, refreshToken, expiresIn, user),
-          },
-          async () => {
-            try {
-              const importPreferences =
-                await this.state.api.getImportPreferences();
-              this.setState({
-                importPreferences,
-              });
-            } catch (error) {
-              this.setState({ errorMessage: error.message });
-            }
-          }
-        );
+        this.setupAuthedData(idToken, refreshToken, expiresIn);
       } catch (err) {
         this.setState({
           errorMessage: typeof err === "string" ? err : err.message,
@@ -159,17 +165,7 @@ class App extends React.Component<any, State> {
   render() {
     if (this.state.api) {
       const itemsView = (() => {
-        if (this.state.importPreferences) {
-          return Object.values(this.state.importPreferences.framesToImport).map(
-            (frame) => (
-              <FigmaPluginItem
-                key={frame.id}
-                title={frame.id}
-                detail={frame.fileId}
-              />
-            )
-          );
-        } else {
+        if (!this.state.framesToExport.length) {
           return (
             <div
               style={{
@@ -183,9 +179,24 @@ class App extends React.Component<any, State> {
                 fontWeight: 500,
               }}
             >
-              Loading...
+              Select frames to import
             </div>
           );
+        } else {
+          return this.state.framesToExport.map((frame) => (
+            <FigmaPluginItem
+              key={frame.id}
+              title={frame.name}
+              // detail={frame.n}
+              accessoryIcon={
+                <span style={{ fontWeight: 300, userSelect: "none" }}>—</span>
+              }
+              accessoryIconOnClick={() => {
+                console.log("remove frame");
+                this.removeFrameFromExport(frame);
+              }}
+            />
+          ));
         }
       })();
       return (
@@ -194,9 +205,9 @@ class App extends React.Component<any, State> {
           style={{ width: "100%", height: "100%", cursor: "default" }}
           itemsView={itemsView}
           secondaryActionTitle="Add selected frames"
-          secondaryActionOnClick={this.onAdd}
+          secondaryActionOnClick={this.addSelectedFramesToExport}
           callToAction="Export"
-          callToActionOnClick={this.onAdd}
+          callToActionOnClick={this.addSelectedFramesToExport}
         />
       );
     }

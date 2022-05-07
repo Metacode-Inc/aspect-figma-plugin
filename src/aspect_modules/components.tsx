@@ -3802,7 +3802,8 @@ fontWeight: 400,
 letterSpacing: 0,
 textAlign: 'left'
 }} />
-<SimpleButton style={{
+<SimpleButton onClick={this.props.accessoryIconOnClick?.bind(this)}
+children={this.props.accessoryIcon} style={{
 justifyContent: 'center'
 }} /></>
 } /></>
@@ -3882,10 +3883,6 @@ alignContent: 'center',
 display: 'grid',
 gap: 2,
 justifyItems: 'flex-start'
-}} />
-<SimpleButton onClick={this.props.accessoryIconOnClick?.bind(this)}
-children={this.props.accessoryIcon} style={{
-justifyContent: 'center'
 }} /></>
 } style={{
 alignItems: 'center',
@@ -3972,7 +3969,8 @@ fontWeight: 400,
 letterSpacing: 0,
 textAlign: 'left'
 }} />
-<SimpleButton style={{
+<SimpleButton onClick={this.props.accessoryIconOnClick?.bind(this)}
+children={this.props.accessoryIcon} style={{
 justifyContent: 'center'
 }} /></>
 } /></>
@@ -4052,10 +4050,6 @@ alignContent: 'center',
 display: 'grid',
 gap: 2,
 justifyItems: 'flex-start'
-}} />
-<SimpleButton onClick={this.props.accessoryIconOnClick?.bind(this)}
-children={this.props.accessoryIcon} style={{
-justifyContent: 'center'
 }} /></>
 } style={{
 alignItems: 'center',
