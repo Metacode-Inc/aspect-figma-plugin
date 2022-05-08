@@ -1,4 +1,4 @@
-import { FigmaImportPreferences } from "./Data";
+import { DesignNode, FigmaImportPreferences } from "./Data";
 
 export class ClientApi {
   static env = "development";
@@ -24,7 +24,7 @@ export class ClientApi {
       }
       const response = await fetch(fullUrl, {
         method: "POST",
-        body: JSON.stringify(json) || formData,
+        body: json ? JSON.stringify(json) : formData,
       });
       if (response.status === 200) {
         switch (responseType) {
@@ -153,7 +153,7 @@ export class ClientApi {
     }
   }
 
-  // user
+  // user & project
 
   static async getUser(idToken: string) {
     const data = new FormData();
@@ -162,11 +162,23 @@ export class ClientApi {
       .data;
   }
 
+  static async getMainProjectId(idToken: string) {
+    const data = new FormData();
+    data.append("idToken", idToken);
+    return (
+      await ClientApi.postRequest(
+        ClientApi.apiUrl("/v1/get-main-project-id"),
+        data
+      )
+    ).data.projectId as string;
+  }
+
   constructor(
     public idToken: string,
     public refreshToken: string,
     public expiresIn: number,
-    public user: any
+    public user: any,
+    public projectId: string
   ) {}
 
   // user
@@ -178,34 +190,29 @@ export class ClientApi {
       .data;
   }
 
-  async getImportPreferences() {
-    try {
-      const data = new FormData();
-      data.append("idToken", this.idToken);
-      return (
-        await ClientApi.postRequest(
-          ClientApi.apiUrl("/v1/get-import-preferences"),
-          data
-        )
-      ).data as FigmaImportPreferences;
-    } catch (error) {
-      throw error;
-    }
-  }
+  // design
 
-  async updateImportPreferences(preferences: FigmaImportPreferences) {
-    try {
-      const data = new FormData();
-      data.append("idToken", this.idToken);
-      data.append("preferences", JSON.stringify(preferences));
-      return (
-        await ClientApi.postRequest(
-          ClientApi.apiUrl("/v1/update-import-preferences"),
-          data
-        )
-      ).data;
-    } catch (error) {
-      throw error;
-    }
+  uploadDesignFrames(frames: DesignNode[]) {
+    const data = new FormData();
+    data.append("idToken", this.idToken);
+    data.append("projectId", this.projectId);
+    data.append(
+      "frames",
+      JSON.stringify(
+        frames.map((x) => {
+          // standardize the frame data
+          const data = JSON.parse(JSON.stringify(x));
+          data.rect.x = 0;
+          data.rect.y = 0;
+          console.log(data);
+
+          return data;
+        })
+      )
+    );
+    return ClientApi.postRequest(
+      ClientApi.apiUrl("/v1/upload-design-frames"),
+      data
+    );
   }
 }

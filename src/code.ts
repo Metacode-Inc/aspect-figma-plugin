@@ -46,6 +46,11 @@ figma.ui.onmessage = async (msg) => {
         await figma.clientStorage.setAsync("refreshToken", msg.refreshToken);
         await figma.clientStorage.setAsync("expiresIn", msg.expiresIn);
         break;
+      case "deleteAuthData":
+        await figma.clientStorage.setAsync("idToken", "");
+        await figma.clientStorage.setAsync("refreshToken", "");
+        await figma.clientStorage.setAsync("expiresIn", "");
+        break;
 
       default:
         break;
@@ -56,8 +61,6 @@ figma.ui.onmessage = async (msg) => {
 };
 
 figma.on("selectionchange", () => {
-  console.log("selectionchange");
-
   figma.ui.postMessage({
     type: "selectionChange",
     frames: figma.currentPage.selection
@@ -96,3 +99,30 @@ function getFramesToExport() {
     });
   return frames;
 }
+
+setInterval(() => {
+  // keep frames in sync
+  figma.ui.postMessage({
+    type: "getFramesToExport",
+    frames: getFramesToExport(),
+  });
+
+  // keep pages in sync
+  const pageFrameIds: {
+    [pageId: string]: { name: string; frameIds: string[] };
+  } = {};
+  figma.root.children.forEach((page) => {
+    page
+      .findAll((node) => node.type === "FRAME")
+      .forEach((frame) => {
+        if (!pageFrameIds[page.id]) {
+          pageFrameIds[page.id] = { name: page.name, frameIds: [] };
+        }
+        pageFrameIds[page.id].frameIds.push(frame.id);
+      });
+  });
+  figma.ui.postMessage({
+    type: "getPageNodeIds",
+    pageFrameIds,
+  });
+}, 1000);

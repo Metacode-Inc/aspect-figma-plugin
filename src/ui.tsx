@@ -1,12 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
-  FigmaPluginItem,
+  FigmaPluginFrameItemView,
   FigmaPluginLoginView,
   FigmaPluginView,
 } from "./aspect_modules/components";
 import { ClientApi } from "./ClientApi";
-import { DesignNode, FigmaImportPreferences } from "./Data";
+import { DesignNode } from "./Data";
 import "./ui.css";
 
 declare function require(path: string): any;
@@ -17,6 +17,10 @@ class State {
     public api?: ClientApi,
     public framesToExport: DesignNode[] = [],
     public selectedFrames: DesignNode[] = [],
+    public pageFrameIds: {
+      [pageId: string]: { name: string; frameIds: string[] };
+    } = {},
+    public isUploadingFrames: boolean = false,
     public errorMessage?: string
   ) {}
 }
@@ -25,24 +29,6 @@ class App extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = new State();
-  }
-
-  addSelectedFramesToExport() {
-    parent.postMessage(
-      { pluginMessage: { type: "addSelectedFramesToExport" } },
-      "*"
-    );
-  }
-
-  removeFrameFromExport(frame: DesignNode) {
-    parent.postMessage(
-      { pluginMessage: { type: "removeFrameFromExport", id: frame.id } },
-      "*"
-    );
-  }
-
-  getFramesToExport() {
-    parent.postMessage({ pluginMessage: { type: "getFramesToExport" } }, "*");
   }
 
   get pluginSource() {
@@ -77,6 +63,11 @@ class App extends React.Component<any, State> {
         case "getFramesToExport":
           this.setState({ framesToExport: event.data.pluginMessage.frames });
           break;
+        case "getPageNodeIds":
+          this.setState({
+            pageFrameIds: event.data.pluginMessage.pageFrameIds,
+          });
+          break;
         case "getSavedAuthData":
           (async () => {
             this.setupPostInitListeners();
@@ -106,62 +97,6 @@ class App extends React.Component<any, State> {
     parent.postMessage({ pluginMessage: { type: "getSavedAuthData" } }, "*");
   }
 
-  async setupAuthedData(
-    idToken: string,
-    refreshToken: string,
-    expiresIn: number
-  ) {
-    try {
-      const user = await ClientApi.getUser(idToken);
-      this.setState(
-        {
-          api: new ClientApi(idToken, refreshToken, expiresIn, user),
-          preAuthToken: undefined,
-        },
-        () => {
-          this.getFramesToExport();
-        }
-      );
-    } catch (err) {
-      this.setState({
-        errorMessage: typeof err === "string" ? err : err.message,
-      });
-    }
-  }
-
-  setupPostInitListeners() {
-    // when tab becomes active
-    window.addEventListener("focus", async () => {
-      try {
-        if (!this.state.preAuthToken) {
-          return;
-        }
-
-        const authToken = await ClientApi.getAuthToken(this.state.preAuthToken);
-        this.setState({ preAuthToken: undefined });
-
-        const { idToken, refreshToken, expiresIn } =
-          await ClientApi.getIdTokenFromAuthToken(authToken);
-        parent.postMessage(
-          {
-            pluginMessage: {
-              type: "saveAuthData",
-              idToken,
-              refreshToken,
-              expiresIn,
-            },
-          },
-          "*"
-        );
-        this.setupAuthedData(idToken, refreshToken, expiresIn);
-      } catch (err) {
-        this.setState({
-          errorMessage: typeof err === "string" ? err : err.message,
-        });
-      }
-    });
-  }
-
   render() {
     if (this.state.api) {
       const itemsView = (() => {
@@ -175,7 +110,7 @@ class App extends React.Component<any, State> {
                 justifyContent: "center",
                 alignItems: "center",
 
-                fontSize: "13px",
+                fontSize: 13,
                 fontWeight: 500,
               }}
             >
@@ -184,10 +119,14 @@ class App extends React.Component<any, State> {
           );
         } else {
           return this.state.framesToExport.map((frame) => (
-            <FigmaPluginItem
+            <FigmaPluginFrameItemView
               key={frame.id}
               title={frame.name}
-              // detail={frame.n}
+              detail={
+                Object.values(this.state.pageFrameIds).find((page) =>
+                  page.frameIds.includes(frame.id)
+                )?.name
+              }
               accessoryIcon={
                 <span style={{ fontWeight: 300, userSelect: "none" }}>—</span>
               }
@@ -207,7 +146,8 @@ class App extends React.Component<any, State> {
           secondaryActionTitle="Add selected frames"
           secondaryActionOnClick={this.addSelectedFramesToExport}
           callToAction="Export"
-          callToActionOnClick={this.addSelectedFramesToExport}
+          callToActionOnClick={() => this.exportFrames()}
+          signOutOnClick={() => this.signOut()}
         />
       );
     }
@@ -245,6 +185,111 @@ class App extends React.Component<any, State> {
         )}
       </>
     );
+  }
+
+  async setupAuthedData(
+    idToken: string,
+    refreshToken: string,
+    expiresIn: number
+  ) {
+    try {
+      const user = await ClientApi.getUser(idToken);
+      const projectId = await ClientApi.getMainProjectId(idToken);
+      this.setState(
+        {
+          api: new ClientApi(idToken, refreshToken, expiresIn, user, projectId),
+          preAuthToken: undefined,
+        },
+        () => {
+          this.getFramesToExport();
+        }
+      );
+    } catch (err) {
+      this.setState({
+        errorMessage: typeof err === "string" ? err : err.message,
+      });
+    }
+  }
+
+  setupPostInitListeners() {
+    // when tab becomes active
+    window.addEventListener("focus", async () => {
+      if (!this.state.preAuthToken) {
+        return;
+      }
+
+      try {
+        const authToken = await ClientApi.getAuthToken(this.state.preAuthToken);
+        this.setState({ preAuthToken: undefined });
+
+        const { idToken, refreshToken, expiresIn } =
+          await ClientApi.getIdTokenFromAuthToken(authToken);
+        this.saveAuthData(idToken, refreshToken, expiresIn);
+        this.setupAuthedData(idToken, refreshToken, expiresIn);
+      } catch (err) {
+        this.setState({
+          errorMessage: typeof err === "string" ? err : err.message,
+        });
+      }
+    });
+  }
+
+  saveAuthData(idToken: string, refreshToken: string, expiresIn: number) {
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: "saveAuthData",
+          idToken,
+          refreshToken,
+          expiresIn,
+        },
+      },
+      "*"
+    );
+  }
+
+  signOut() {
+    this.deleteAuthData();
+    this.setState(new State());
+  }
+
+  deleteAuthData() {
+    parent.postMessage({ pluginMessage: { type: "deleteAuthData" } }, "*");
+  }
+
+  addSelectedFramesToExport() {
+    parent.postMessage(
+      { pluginMessage: { type: "addSelectedFramesToExport" } },
+      "*"
+    );
+  }
+
+  removeFrameFromExport(frame: DesignNode) {
+    parent.postMessage(
+      { pluginMessage: { type: "removeFrameFromExport", id: frame.id } },
+      "*"
+    );
+  }
+
+  getFramesToExport() {
+    parent.postMessage({ pluginMessage: { type: "getFramesToExport" } }, "*");
+  }
+
+  async exportFrames() {
+    this.setState({ isUploadingFrames: true }, async () => {
+      if (!this.state.api) {
+        this.setState({ isUploadingFrames: false });
+        return;
+      }
+
+      try {
+        await this.state.api.uploadDesignFrames(this.state.framesToExport);
+      } catch (error) {
+        this.setState({ errorMessage: error.message });
+      }
+
+      this.setState({ isUploadingFrames: false });
+    });
   }
 }
 

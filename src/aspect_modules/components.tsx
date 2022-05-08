@@ -3696,9 +3696,9 @@ message?: string;
   }
 }
 
-export class FigmaPluginItem extends React.Component<
-FigmaPluginItem.Props,
-FigmaPluginItem.State
+export class FigmaPluginFrameItemView extends React.Component<
+FigmaPluginFrameItemView.Props,
+FigmaPluginFrameItemView.State
 > {
   _isMounted = false;
   get customState() {
@@ -3712,9 +3712,9 @@ FigmaPluginItem.State
     return 'default';
   }
 
-  constructor(props: FigmaPluginItem.Props) {
+  constructor(props: FigmaPluginFrameItemView.Props) {
     super(props);
-    this.state = new FigmaPluginItem.State();
+    this.state = new FigmaPluginFrameItemView.State();
   }
 
   componentDidMount() {
@@ -3782,7 +3782,7 @@ letterSpacing: 0,
 textAlign: 'left'
 }} />
 <span className="aspect-span" children={this.props.detail} style={{
-color: 'rgba(102,102,102,1)',
+color: 'rgba(151,151,151,1)',
 fontSize: 11,
 fontWeight: 500,
 letterSpacing: 0,
@@ -3815,7 +3815,7 @@ gap: 16,
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
 minHeight: 50,
-padding: '0 16px'
+padding: '0 12px 0 20px'
 ,
 ...this.props.style}} id={this.props.id} />
 )
@@ -3892,7 +3892,7 @@ gap: 16,
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
 minHeight: 50,
-padding: '0 16px'
+padding: '0 20px'
 ,
 ...this.props.style}} id={this.props.id} />
 )
@@ -3982,7 +3982,7 @@ gap: 16,
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
 minHeight: 50,
-padding: '0 16px'
+padding: '0 12px 0 20px'
 ,
 ...this.props.style}} id={this.props.id} />
 )
@@ -4039,7 +4039,7 @@ letterSpacing: 0,
 textAlign: 'left'
 }} />
 <span className="aspect-span" children={this.props.detail} style={{
-color: 'rgba(102,102,102,1)',
+color: 'rgba(151,151,151,1)',
 fontSize: 11,
 fontWeight: 500,
 letterSpacing: 0,
@@ -4059,7 +4059,7 @@ gap: 16,
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
 minHeight: 50,
-padding: '0 16px'
+padding: '0 20px'
 ,
 ...this.props.style}} id={this.props.id} />
 )
@@ -4076,7 +4076,7 @@ padding: '0 16px'
   }
 }
 
-export namespace FigmaPluginItem {
+export namespace FigmaPluginFrameItemView {
   export interface Props {
     id?: string;
     key?: string;
