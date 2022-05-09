@@ -65,7 +65,7 @@ figma.on("selectionchange", () => {
     type: "selectionChange",
     frames: figma.currentPage.selection
       .filter((x) => x.type === "FRAME")
-      .map((frame) => getNodeData(frame)),
+      .map((frame) => JSON.stringify(getNodeData(frame))),
   });
 });
 
@@ -113,14 +113,14 @@ function getNodeData(node: any) {
 }
 
 function getFramesToExport() {
-  const frames: DesignNode[] = [];
+  const frames: string[] = [];
   figma.root
     .findAll(
       (node) =>
         node.type === "FRAME" && node.getPluginData("shouldExport") === "true"
     )
     .forEach((frame) => {
-      frames.push(getNodeData(frame));
+      frames.push(JSON.stringify(getNodeData(frame)));
     });
   return frames;
 }

@@ -47,21 +47,18 @@ class App extends React.Component<any, State> {
     window.onmessage = async (event) => {
       switch (event.data.pluginMessage.type) {
         case "selectionChange":
-          this.setState({ selectedFrames: event.data.pluginMessage.frames });
-          break;
-        case "addSelectedFramesToExport":
           this.setState({
-            framesToExport: [
-              ...this.state.framesToExport,
-              ...this.state.selectedFrames.filter(
-                (frame) =>
-                  !this.state.framesToExport.some((f) => f.id === frame.id)
-              ),
-            ],
+            selectedFrames: event.data.pluginMessage.frames.map((x) =>
+              JSON.parse(x)
+            ),
           });
           break;
         case "getFramesToExport":
-          this.setState({ framesToExport: event.data.pluginMessage.frames });
+          this.setState({
+            framesToExport: event.data.pluginMessage.frames.map((x) =>
+              JSON.parse(x)
+            ),
+          });
           break;
         case "getPageNodeIds":
           this.setState({
@@ -288,6 +285,8 @@ class App extends React.Component<any, State> {
       try {
         await this.state.api.uploadDesignFrames(this.state.framesToExport);
       } catch (error) {
+        console.log(error);
+
         this.handleError(error);
         if (shouldRetryOnAuthError) {
           this.handleAuthedRequestError(
