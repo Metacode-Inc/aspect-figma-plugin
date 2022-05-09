@@ -179,6 +179,9 @@ class App extends React.Component<any, State> {
               this.setState({ errorMessage: err.message });
             }
           }}
+          signupOnClick={() => {
+            window.open("https://dev.aspect.app/signup", "_blank");
+          }}
         />
         {this.state.errorMessage && (
           <div className="error-message">{this.state.errorMessage}</div>
