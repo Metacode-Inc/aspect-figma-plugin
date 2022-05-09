@@ -4600,7 +4600,8 @@ gap: 8,
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 padding: '6px 12px 7px',
-width: '100%'
+width: '100%',
+zIndex: 1
 }} /></>
 } style={{
 alignContent: 'center',
