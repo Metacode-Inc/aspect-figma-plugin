@@ -79,7 +79,12 @@ class App extends React.Component<any, State> {
             }
 
             try {
-              await this.initAuthedState(idToken, refreshToken, expiresIn);
+              await this.initAuthedState(
+                idToken,
+                refreshToken,
+                expiresIn,
+                true
+              );
             } catch (error) {
               this.handleError(error);
             }
@@ -144,7 +149,7 @@ class App extends React.Component<any, State> {
           secondaryActionTitle="Add selected frames"
           secondaryActionOnClick={this.addSelectedFramesToExport}
           callToAction="Export"
-          callToActionOnClick={() => this.exportFrames()}
+          callToActionOnClick={() => this.exportFrames(true)}
           signOutOnClick={() => this.signOut()}
         />
       );
@@ -188,7 +193,8 @@ class App extends React.Component<any, State> {
   async initAuthedState(
     idToken: string,
     refreshToken: string,
-    expiresIn: number
+    expiresIn: number,
+    shouldRetryOnAuthError: boolean = false
   ) {
     try {
       const user = await ClientApi.getUser(idToken);
@@ -204,22 +210,8 @@ class App extends React.Component<any, State> {
       );
     } catch (error) {
       this.handleError(error);
-      if (error.status === 403) {
-        try {
-          const authData = await ClientApi.refreshAuth(refreshToken);
-          this.saveAuthData(
-            authData.idToken,
-            authData.refreshToken,
-            authData.expiresIn
-          );
-          this.initAuthedState(
-            authData.idToken,
-            authData.refreshToken,
-            authData.expiresIn
-          );
-        } catch (error) {
-          this.handleError(error);
-        }
+      if (shouldRetryOnAuthError) {
+        this.handleAuthedRequestError(error, refreshToken);
       }
     }
   }
@@ -286,7 +278,7 @@ class App extends React.Component<any, State> {
     parent.postMessage({ pluginMessage: { type: "getFramesToExport" } }, "*");
   }
 
-  async exportFrames() {
+  async exportFrames(shouldRetryOnAuthError: boolean = false) {
     this.setState({ isUploadingFrames: true }, async () => {
       if (!this.state.api) {
         this.setState({ isUploadingFrames: false });
@@ -297,6 +289,19 @@ class App extends React.Component<any, State> {
         await this.state.api.uploadDesignFrames(this.state.framesToExport);
       } catch (error) {
         this.handleError(error);
+        if (shouldRetryOnAuthError) {
+          this.handleAuthedRequestError(
+            error,
+            this.state.api.refreshToken,
+            async () => {
+              try {
+                await this.exportFrames();
+              } catch (error) {
+                this.handleError(error);
+              }
+            }
+          );
+        }
       }
 
       this.setState({ isUploadingFrames: false });
@@ -307,6 +312,37 @@ class App extends React.Component<any, State> {
     this.setState({
       errorMessage: typeof error === "string" ? error : error.message,
     });
+  }
+
+  async handleAuthedRequestError(
+    error: any,
+    refreshToken: string,
+    callback?: () => void
+  ) {
+    switch (error.status) {
+      case 403:
+        try {
+          const authData = await ClientApi.refreshAuth(refreshToken);
+          this.saveAuthData(
+            authData.idToken,
+            authData.refreshToken,
+            authData.expiresIn
+          );
+          await this.initAuthedState(
+            authData.idToken,
+            authData.refreshToken,
+            authData.expiresIn
+          );
+          callback && callback();
+        } catch (error) {
+          this.handleError(error);
+          this.signOut();
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 }
 
