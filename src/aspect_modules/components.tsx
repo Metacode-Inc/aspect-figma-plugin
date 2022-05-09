@@ -3795,7 +3795,7 @@ gap: 2,
 justifyItems: 'flex-start'
 }} />
 <HStack children={
-<><span className="aspect-span" children="Go to frame" style={{
+<><span className="aspect-span" children={this.props.accessoryText} style={{
 color: 'rgba(0,0,0,1)',
 fontSize: 11,
 fontWeight: 400,
@@ -3962,7 +3962,7 @@ gap: 2,
 justifyItems: 'flex-start'
 }} />
 <HStack children={
-<><span className="aspect-span" children="Go to frame" style={{
+<><span className="aspect-span" children={this.props.accessoryText} style={{
 color: 'white',
 fontSize: 11,
 fontWeight: 400,
@@ -4097,6 +4097,170 @@ detail?: string;
 accessoryIcon?: React.ReactNode;
 accessoryIconOnClick?: (e: any) => any;
 isSelected?: boolean;
+accessoryText?: string;
+  }
+
+  export class State {
+    constructor(
+      public isHovered: boolean = false,
+      public isPressed: boolean = false,
+    ) {}
+  }
+}
+
+export class FigmaPluginItem extends React.Component<
+FigmaPluginItem.Props,
+FigmaPluginItem.State
+> {
+  _isMounted = false;
+  get customState() {
+    
+    return 'default';
+  }
+
+  constructor(props: FigmaPluginItem.Props) {
+    super(props);
+    this.state = new FigmaPluginItem.State();
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+  
+  render() {
+    switch (this.customState) {
+      default:
+return (
+<div className="aspect-div" onMouseEnter={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={
+<><div className="aspect-div" children={
+<><span className="aspect-span" children="FigmaFileSyncSelection" style={{
+color: 'rgba(0,0,0,NaN)',
+fontSize: 12,
+opacity: 1
+}} />
+<span className="aspect-span" children="Aspect/Aspect Dev" style={{
+color: 'rgba(102,102,102,NaN)',
+fontSize: 10,
+opacity: 1
+}} /></>
+} style={{
+alignContent: 'center',
+display: 'grid',
+gap: 5.390625,
+justifyItems: 'flex-start',
+minHeight: 28,
+opacity: 1,
+width: 135
+}} />
+<div className="aspect-div" children={
+<><span className="aspect-span" children="Go to frame" style={{
+color: 'rgba(0,0,0,NaN)',
+fontSize: 10,
+opacity: 1
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(0,0,0,NaN)',
+minHeight: 1,
+opacity: 1,
+width: 16
+}} /></>
+} style={{
+alignItems: 'center',
+display: 'grid',
+gridAutoFlow: 'column',
+justifyContent: 'space-between',
+minHeight: 12,
+opacity: 1,
+width: 102
+}} /></>
+} style={{
+alignItems: 'center',
+backgroundColor: 'rgba(255,255,255,NaN)',
+display: 'grid',
+gridAutoFlow: 'column',
+justifyContent: 'space-between',
+minHeight: 50,
+opacity: 1,
+width: 366
+,
+...this.props.style}} id={this.props.id} />
+)
+    }
+  }
+
+  handleMouseUp = (e: any) => {
+    if (!this._isMounted) {
+      return;
+    }
+    this.setState({
+      isPressed: false,
+    });
+  }
+}
+
+export namespace FigmaPluginItem {
+  export interface Props {
+    id?: string;
+    key?: string;
+    style?: React.CSSProperties;
+    onMouseEnter?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+name?: string;
   }
 
   export class State {

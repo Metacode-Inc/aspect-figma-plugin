@@ -1,4 +1,4 @@
-import { DesignNode, FigmaImportPreferences } from "./Data";
+import { DesignNode } from "./Data";
 
 export class ClientApi {
   static env = "development";
@@ -38,7 +38,8 @@ export class ClientApi {
         }
       } else {
         try {
-          const json = await response.json();
+          let json = await response.json();
+          json = { ...json, status: response.status };
           return Promise.reject(json);
         } catch {
           return Promise.reject(response.statusText);
@@ -129,19 +130,17 @@ export class ClientApi {
     }
   }
 
-  static async refreshIdToken(refreshToken: string) {
+  static async refreshAuth(refreshToken: string) {
     try {
-      const data = (
-        await ClientApi.postRequest(
-          "https://securetoken.googleapis.com/v1/token?key=" +
-            ClientApi.publicFirebaseApiKey,
-          undefined,
-          {
-            grant_type: "refresh_token",
-            refresh_token: refreshToken,
-          }
-        )
-      ).data;
+      const data = await ClientApi.postRequest(
+        "https://securetoken.googleapis.com/v1/token?key=" +
+          ClientApi.publicFirebaseApiKey,
+        undefined,
+        {
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        }
+      );
       return {
         idToken: data.id_token,
         expiresIn: data.expires_in,
@@ -196,20 +195,8 @@ export class ClientApi {
     const data = new FormData();
     data.append("idToken", this.idToken);
     data.append("projectId", this.projectId);
-    data.append(
-      "frames",
-      JSON.stringify(
-        frames.map((x) => {
-          // standardize the frame data
-          const data = JSON.parse(JSON.stringify(x));
-          data.rect.x = 0;
-          data.rect.y = 0;
-          console.log(data);
+    data.append("frames", JSON.stringify(frames));
 
-          return data;
-        })
-      )
-    );
     return ClientApi.postRequest(
       ClientApi.apiUrl("/v1/upload-design-frames"),
       data

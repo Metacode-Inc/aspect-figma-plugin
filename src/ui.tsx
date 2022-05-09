@@ -79,11 +79,9 @@ class App extends React.Component<any, State> {
             }
 
             try {
-              await this.setupAuthedData(idToken, refreshToken, expiresIn);
-            } catch (err) {
-              this.setState({
-                errorMessage: typeof err === "string" ? err : err.message,
-              });
+              await this.initAuthedState(idToken, refreshToken, expiresIn);
+            } catch (error) {
+              this.handleError(error);
             }
           })();
           break;
@@ -187,7 +185,7 @@ class App extends React.Component<any, State> {
     );
   }
 
-  async setupAuthedData(
+  async initAuthedState(
     idToken: string,
     refreshToken: string,
     expiresIn: number
@@ -204,10 +202,25 @@ class App extends React.Component<any, State> {
           this.getFramesToExport();
         }
       );
-    } catch (err) {
-      this.setState({
-        errorMessage: typeof err === "string" ? err : err.message,
-      });
+    } catch (error) {
+      this.handleError(error);
+      if (error.status === 403) {
+        try {
+          const authData = await ClientApi.refreshAuth(refreshToken);
+          this.saveAuthData(
+            authData.idToken,
+            authData.refreshToken,
+            authData.expiresIn
+          );
+          this.initAuthedState(
+            authData.idToken,
+            authData.refreshToken,
+            authData.expiresIn
+          );
+        } catch (error) {
+          this.handleError(error);
+        }
+      }
     }
   }
 
@@ -225,11 +238,9 @@ class App extends React.Component<any, State> {
         const { idToken, refreshToken, expiresIn } =
           await ClientApi.getIdTokenFromAuthToken(authToken);
         this.saveAuthData(idToken, refreshToken, expiresIn);
-        this.setupAuthedData(idToken, refreshToken, expiresIn);
-      } catch (err) {
-        this.setState({
-          errorMessage: typeof err === "string" ? err : err.message,
-        });
+        this.initAuthedState(idToken, refreshToken, expiresIn);
+      } catch (error) {
+        this.handleError(error);
       }
     });
   }
@@ -285,10 +296,16 @@ class App extends React.Component<any, State> {
       try {
         await this.state.api.uploadDesignFrames(this.state.framesToExport);
       } catch (error) {
-        this.setState({ errorMessage: error.message });
+        this.handleError(error);
       }
 
       this.setState({ isUploadingFrames: false });
+    });
+  }
+
+  handleError(error: any) {
+    this.setState({
+      errorMessage: typeof error === "string" ? error : error.message,
     });
   }
 }

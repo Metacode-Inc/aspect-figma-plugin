@@ -1,4 +1,4 @@
-import { DesignNode, Rect } from "./Data";
+import { DesignNode } from "./Data";
 
 figma.showUI(__html__);
 
@@ -74,11 +74,36 @@ function getNodeData(node: any) {
     node.id,
     node.name,
     node.type,
-    new Rect(node.x, node.y, node.width, node.height),
     undefined,
-    undefined,
-    (node as any).fills ? (node as any).fills : undefined
+    node.absoluteRenderBounds,
+    node.blendMode,
+    node.characters,
+    node.fills,
+    node.fontName,
+    node.fontSize,
+    node.letterSpacing,
+    node.lineHeight,
+    node.opacity,
+    node.paddingLeft,
+    node.paddingRight,
+    node.paddingTop,
+    node.paddingBottom,
+    node.rotation,
+    node.strokeAlign,
+    node.strokeCap,
+    node.strokeGeometry,
+    node.strokeJoin,
+    node.strokeMiterLimit,
+    node.strokeStyleId,
+    node.strokeWeight,
+    node.strokes,
+    node.textAlignHorizontal,
+    node.textAlignVertical,
+    node.textAutoResize,
+    node.textCase,
+    node.textDecoration
   );
+
   if (node.children) {
     node.children.forEach((child) => {
       data.children.push(getNodeData(child));
