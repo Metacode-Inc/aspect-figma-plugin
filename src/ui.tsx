@@ -20,7 +20,7 @@ class State {
     public pageFrameIds: {
       [pageId: string]: { name: string; frameIds: string[] };
     } = {},
-    public isUploadingFrames: boolean = false,
+    public isExporting: boolean = false,
     public errorMessage?: string
   ) {}
 }
@@ -144,8 +144,9 @@ class App extends React.Component<any, State> {
           style={{ width: "100%", height: "100%", cursor: "default" }}
           itemsView={itemsView}
           secondaryActionTitle="Add selected frames"
+          isExporting={this.state.isExporting}
           secondaryActionOnClick={this.addSelectedFramesToExport}
-          callToAction="Export"
+          callToAction={this.state.isExporting ? "Exporting…" : "Export"}
           callToActionOnClick={() => this.exportFrames(true)}
           signOutOnClick={() => this.signOut()}
         />
@@ -279,9 +280,9 @@ class App extends React.Component<any, State> {
   }
 
   async exportFrames(shouldRetryOnAuthError: boolean = false) {
-    this.setState({ isUploadingFrames: true }, async () => {
+    this.setState({ isExporting: true }, async () => {
       if (!this.state.api) {
-        this.setState({ isUploadingFrames: false });
+        this.setState({ isExporting: false });
         return;
       }
 
@@ -306,7 +307,7 @@ class App extends React.Component<any, State> {
         }
       }
 
-      this.setState({ isUploadingFrames: false });
+      this.setState({ isExporting: false });
     });
   }
 

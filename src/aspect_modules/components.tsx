@@ -34,11 +34,12 @@ AspectLanding.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -80,6 +81,7 @@ onBlur={this.props.onBlur?.bind(this)} children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 47,
+opacity: 1,
 width: 169.199951171875
 }} />
 <div className="aspect-div" children={
@@ -87,22 +89,19 @@ width: 169.199951171875
 <><span className="aspect-span" children="Community" style={{
 color: 'rgba(129,129,129,1)',
 fontSize: 16,
-fontWeight: 500,
-letterSpacing: 0.5,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="Updates" style={{
 color: 'rgba(129,129,129,1)',
 fontSize: 16,
-fontWeight: 500,
-letterSpacing: 0.5,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="Login" style={{
 color: 'rgba(129,129,129,1)',
 fontSize: 16,
-fontWeight: 500,
-letterSpacing: 0.5,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
@@ -110,14 +109,15 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+minHeight: 19,
+opacity: 1,
 width: 252
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Try for Free" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 16,
-fontWeight: 700,
-letterSpacing: 0.4000000059604645,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
@@ -127,6 +127,7 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 51,
+opacity: 1,
 width: 135
 }} /></>
 } style={{
@@ -134,6 +135,7 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 414
 }} /></>
 } style={{
@@ -142,29 +144,26 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
 minHeight: 100,
+opacity: 1,
 width: 1920
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="The website builder for startups." style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 112,
-fontWeight: 400,
-letterSpacing: -1.12,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="Quickly publish or download custom sites and pages" style={{
 color: 'rgba(86,86,86,1)',
 fontSize: 28,
-fontWeight: 400,
-letterSpacing: 0.28,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Get Started — It’s Free" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 700,
-letterSpacing: 0.4000000059604645,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
@@ -174,107 +173,158 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 72,
+opacity: 1,
 width: 261
 }} /></>
 } style={{
-alignContent: 'center',
+alignContent: 'flex-end',
 display: 'grid',
-gap: 3,
+gap: 48.693359375,
 justifyItems: 'center',
+minHeight: 461,
+opacity: 1,
 width: 1029
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-backgroundColor: 'rgba(0,0,0,0.07)',
-minHeight: 178.728759765625,
-width: 233.15966796875
-}} />
-<div className="aspect-div" style={{
 backgroundColor: 'linear-gradient(rgba(25,252,192,1) 0%,rgba(74,230,252,1) 45.374903082847595%,rgba(59,38,254,1) 100%)',
 minHeight: 178.728759765625,
-width: 233.15966796875
+opacity: 1,
+width: 227.93701171875
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'linear-gradient(rgba(230,230,230,1) 0%,rgba(255,255,255,1) 100%)',
-minHeight: 25.328125,
-width: 21.93505859375
+minHeight: 28.266357421875,
+opacity: 1,
+width: 25.9970703125
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
-minHeight: 90,
-width: 91
+minHeight: 122,
+opacity: 1,
+width: 123
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'linear-gradient(rgba(25,252,192,1) 0%,rgba(74,230,252,1) 45.374903082847595%,rgba(59,38,254,1) 100%)',
 minHeight: 191.72705078125,
-width: 250.22021484375
-}} />
-<div className="aspect-div" style={{
-backgroundColor: 'rgba(0,0,0,0.07)',
-minHeight: 191.72705078125,
-width: 250.22021484375
+opacity: 1,
+width: 245.00341796875
 }} /></>
 } style={{
 alignItems: 'flex-start',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
-minHeight: 609.5,
-width: 1583.3740234375
+minHeight: 636,
+opacity: 1,
+width: 1675.20556640625
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Trusted by top startups around the world" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 28,
-fontWeight: 500,
-letterSpacing: 0.28,
+opacity: 1,
 textAlign: 'center'
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 23,
+opacity: 1,
 width: 152
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
-minHeight: 11.4456787109375,
-width: 11.44384765625
+minHeight: 5.550537109375,
+opacity: 1,
+width: 6.92041015625
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 5.550537109375,
+opacity: 1,
+width: 6.93310546875
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 11.4503173828125,
-width: 11.44580078125
-}} />
-<div className="aspect-div" style={{
-backgroundColor: 'rgba(255,255,255,1)',
-minHeight: 11.4503173828125,
+opacity: 1,
 width: 11.44580078125
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 11.44580078125,
+opacity: 1,
 width: 11.44384765625
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 6.9266357421875,
+opacity: 1,
+width: 5.55712890625
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 6.9267578125,
+opacity: 1,
+width: 5.56982421875
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 6.952392578125,
+opacity: 1,
+width: 5.56982421875
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 6.9395751953125,
+opacity: 1,
+width: 5.55712890625
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 11.4503173828125,
+opacity: 1,
+width: 11.44580078125
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 11.4456787109375,
+opacity: 1,
+width: 11.44384765625
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 5.5762939453125,
+opacity: 1,
+width: 6.939453125
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'rgba(255,255,255,1)',
+minHeight: 5.56982421875,
+opacity: 1,
+width: 6.95263671875
 }} /></>
 } style={{
-alignItems: 'flex-end',
+alignContent: 'center',
 backgroundColor: 'rgba(255,255,255,1)',
 display: 'grid',
-gap: 18.9691162109375,
-gridAutoFlow: 'column',
-justifyContent: 'space-between',
+gap: 12.4412841796875,
+justifyItems: 'flex-end',
 minHeight: 56,
+opacity: 1,
 width: 56
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 32.3399658203125,
+opacity: 1,
 width: 147.83984375
 }} /></>
 } style={{
@@ -284,12 +334,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
 minHeight: 33,
+opacity: 1,
 width: 147.83984375
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 51.9302978515625,
+opacity: 1,
 width: 36.1318359375
 }} /></>
 } style={{
@@ -299,11 +351,13 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 58.320068359375,
+opacity: 1,
 width: 58.3203125
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 34,
+opacity: 1,
 width: 107
 }} /></>
 } style={{
@@ -311,13 +365,16 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 761.16015625
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 48,
+gap: 49.640625,
 justifyItems: 'center',
+minHeight: 139.320068359375,
+opacity: 1,
 width: 761.16015625
 }} />
 <div className="aspect-div" children={
@@ -326,65 +383,65 @@ width: 761.16015625
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 265.3203125,
+opacity: 1,
 width: 220.746337890625
 }} />
 <span className="aspect-span" children="COMPONENTS" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 16.980501174926758,
-fontWeight: 700,
-letterSpacing: 3.3961002349853517,
+opacity: 1,
 textAlign: 'center'
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 255.768798828125,
+opacity: 1,
 width: 221.8076171875
 }} /></>
 } style={{
-alignItems: 'flex-end',
+alignItems: 'flex-start',
 background: 'rgba(255,255,255,1)',
 display: 'grid',
-gap: 16.98046875,
+gap: 20.9375,
 gridAutoFlow: 'column',
-justifyContent: 'space-between',
-minHeight: 352,
-width: 498
+justifyContent: 'center',
+minHeight: 480,
+opacity: 1,
+width: 626
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
-minHeight: 823,
-width: 868
+minHeight: 851,
+opacity: 1,
+width: 932
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="TOP FEATURE" style={{
 color: 'rgba(51,123,246,1)',
 fontSize: 20,
-fontWeight: 700,
-letterSpacing: 6,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="Create with Powerful Components." style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 64,
-fontWeight: 700,
-letterSpacing: 0,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Dolere malum est: in crucem qui agitur, beatus esse non potest. Huius, Lyco, oratione locuples, rebus ipsis ielunior. Quo modo autem optimum, si bonum praeterea nullum est? Cur igitur, cum de re conveniat," style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 30,
+gap: 49.130859375,
 justifyItems: 'flex-start',
+minHeight: 368,
+opacity: 1,
 width: 668
 }} /></>
 } style={{
@@ -392,6 +449,7 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 1668
 }} />
 <div className="aspect-div" children={
@@ -399,54 +457,30 @@ width: 1668
 <><span className="aspect-span" children="Export clean, readable code." style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 64,
-fontWeight: 700,
-letterSpacing: 0,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Export your website as clean, readable html, css, and javascript. You can also inject code into your Aspect website using the embed element." style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
-alignContent: 'center',
+alignContent: 'flex-end',
 display: 'grid',
-gap: 15,
+gap: 63.57421875,
 justifyItems: 'flex-start',
-width: 619
-}} />
-<div className="aspect-div" children={
-<><div className="aspect-div" children={
-<><div className="aspect-div" style={{
-backgroundColor: 'rgba(0,0,0,0.07)',
-minHeight: 453,
-width: 531
-}} /></>
-} style={{
-alignItems: 'flex-end',
-background: 'rgba(36,41,46,1)',
-display: 'grid',
-gridAutoFlow: 'column',
-justifyContent: 'flex-end',
-minHeight: 487,
-width: 567
+minHeight: 281,
+opacity: 1,
+width: 619.5859375
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
-minHeight: 823,
-width: 961
-}} /></>
-} style={{
-alignItems: 'center',
-display: 'grid',
-gridAutoFlow: 'column',
-justifyContent: 'space-between',
-width: 1619
+minHeight: 851,
+opacity: 1,
+width: 1619.5859375
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" children={
@@ -454,8 +488,7 @@ width: 1619
 <><span className="aspect-span" children="Add Domain" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 17.105802536010742,
-fontWeight: 400,
-letterSpacing: 0.5131740760803223,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
@@ -464,46 +497,61 @@ backgroundColor: 'rgba(255,255,255,1)',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
-minHeight: 477.7406005859375,
-width: 358
+minHeight: 605.7406005859375,
+opacity: 1,
+width: 486
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
-minHeight: 823,
-width: 879
+minHeight: 851,
+opacity: 1,
+width: 943
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="TOP FEATURE" style={{
 color: 'rgba(51,123,246,1)',
 fontSize: 20,
-fontWeight: 700,
-letterSpacing: 6,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="Publish, export or sync sites." style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 64,
-fontWeight: 700,
-letterSpacing: 0,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 16.5413818359375,
-width: 16.5400390625
+minHeight: 18.5413818359375,
+opacity: 1,
+width: 18.5400390625
+}} />
+<div className="aspect-div" style={{
+minHeight: 6.91961669921875,
+opacity: 1,
+width: 10.27783203125
+}} />
+<div className="aspect-div" style={{
+minHeight: 10.278076171875,
+opacity: 1,
+width: 6.91943359375
+}} />
+<div className="aspect-div" style={{
+minHeight: 8.69775390625,
+opacity: 1,
+width: 12.787109375
 }} /></>
 } style={{
-alignItems: 'center',
+alignContent: 'center',
 backgroundColor: 'rgba(255,255,255,1)',
 display: 'grid',
-gridAutoFlow: 'column',
-justifyContent: 'flex-end',
+justifyItems: 'flex-end',
 minHeight: 32,
+opacity: 1,
 width: 32
 }} /></>
 } style={{
@@ -512,28 +560,30 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 60,
+opacity: 1,
 width: 59.9365234375
 }} />
 <span className="aspect-span" children="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
-alignItems: 'center',
+alignItems: 'flex-start',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+minHeight: 87,
+opacity: 1,
 width: 620
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 28.03570556640625,
-width: 26
+minHeight: 30.03570556640625,
+opacity: 1,
+width: 28
 }} /></>
 } style={{
 alignItems: 'center',
@@ -542,6 +592,7 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
 minHeight: 32,
+opacity: 1,
 width: 32
 }} /></>
 } style={{
@@ -550,28 +601,30 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 60,
+opacity: 1,
 width: 59.9365234375
 }} />
 <span className="aspect-span" children="Dolere malum est: in crucem qui agitur, beatus esse non potest. Huius, Lyco, oratione locuples, rebus ipsis ielunior." style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
-alignItems: 'center',
+alignItems: 'flex-start',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+minHeight: 120,
+opacity: 1,
 width: 620
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 12,
-width: 12
+minHeight: 13.952392578125,
+opacity: 1,
+width: 13.9521484375
 }} /></>
 } style={{
 alignItems: 'flex-start',
@@ -580,6 +633,7 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 minHeight: 24,
+opacity: 1,
 width: 24
 }} /></>
 } style={{
@@ -588,27 +642,30 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 60,
+opacity: 1,
 width: 59.9365234375
 }} />
 <span className="aspect-span" children="Dolere malum est: in crucem qui agitur, beatus esse non potest. Huius, Lyco, oratione locuples" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
-alignItems: 'center',
+alignItems: 'flex-start',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+minHeight: 120,
+opacity: 1,
 width: 620
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 30,
+gap: 49.130859375,
 justifyItems: 'flex-start',
+minHeight: 633,
+opacity: 1,
 width: 668
 }} /></>
 } style={{
@@ -616,14 +673,14 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 1669
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="What our customers are saying" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 64,
-fontWeight: 400,
-letterSpacing: -0.64,
+opacity: 1,
 textAlign: 'center'
 }} />
 <div className="aspect-div" children={
@@ -631,35 +688,33 @@ textAlign: 'center'
 <><span className="aspect-span" children="“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Illa argumenta propria videamus, cur omnia sint paria peccata.”" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 64,
+opacity: 1,
 width: 64
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Jenny Davdson" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 600,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Front end Developer at Acme Studios" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-justifyItems: 'flex-start',
+gap: 11.40625,
+justifyItems: 'flex-end',
+minHeight: 60,
+opacity: 1,
 width: 335
 }} /></>
 } style={{
@@ -667,50 +722,50 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 423
 }} /></>
 } style={{
 alignContent: 'center',
 background: 'rgba(255,255,255,1)',
 display: 'grid',
-gap: 29,
+gap: 33.484375,
 justifyItems: 'center',
-minHeight: 279,
-width: 624
+minHeight: 287,
+opacity: 1,
+width: 632
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="“Si quidem, inquit, tollerem, sed relinquo. Quamvis enim depravatae non sint, pravae tamen esse Si quidem, inquit, tollerem, sed.”" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 64,
+opacity: 1,
 width: 64
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Marc" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 600,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Co Founder at XYZ" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
+gap: 15.13671875,
 justifyItems: 'flex-start',
+minHeight: 60,
+opacity: 1,
 width: 171
 }} /></>
 } style={{
@@ -718,49 +773,49 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 259
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 29,
+gap: 34.490234375,
 justifyItems: 'center',
-minHeight: 279,
-width: 624
+minHeight: 287,
+opacity: 1,
+width: 632
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="“Si quidem, inquit, tollerem, sed relinquo. Quamvis enim depravatae non sint, pravae tamen esse Si quidem, inquit, tollerem, sed.”" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 64,
+opacity: 1,
 width: 64
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Joseph Richards" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 600,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Developer at XYZ" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-justifyItems: 'flex-start',
+gap: 11.77734375,
+justifyItems: 'center',
+minHeight: 60,
+opacity: 1,
 width: 158
 }} /></>
 } style={{
@@ -768,50 +823,50 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 246
 }} /></>
 } style={{
 alignContent: 'center',
 background: 'rgba(255,255,255,1)',
 display: 'grid',
-gap: 29,
+gap: 34.490234375,
 justifyItems: 'center',
-minHeight: 279,
-width: 624
+minHeight: 287,
+opacity: 1,
+width: 632
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Illa argumenta propria videamus, cur omnia sint paria peccata.”" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(0,0,0,0.07)',
 minHeight: 64,
+opacity: 1,
 width: 64
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Beth" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 600,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Team Lead at XYZ" style={{
 color: 'rgba(95,95,95,1)',
 fontSize: 20,
-fontWeight: 400,
-letterSpacing: 0.4,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
+gap: 15.13671875,
 justifyItems: 'flex-start',
+minHeight: 60,
+opacity: 1,
 width: 165
 }} /></>
 } style={{
@@ -819,37 +874,44 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 253
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 29,
+gap: 33.484375,
 justifyItems: 'center',
-minHeight: 279,
-width: 624
+minHeight: 287,
+opacity: 1,
+width: 632
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 64,
+gap: 56,
+gridTemplateColumns: 'auto auto',
 justifyItems: 'flex-end',
-width: 1312
+opacity: 1,
+width: 1320
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(73,231,251,1)',
 minHeight: 15,
+opacity: 1,
 width: 15
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(230,230,230,1)',
 minHeight: 15,
+opacity: 1,
 width: 15
 }} />
 <div className="aspect-div" style={{
 backgroundColor: 'rgba(230,230,230,1)',
 minHeight: 15,
+opacity: 1,
 width: 15
 }} /></>
 } style={{
@@ -857,54 +919,55 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 77
 }} /></>
 } style={{
-alignContent: 'center',
 display: 'grid',
-gap: 103,
+gap: 102.1875,
 justifyItems: 'center',
-width: 1312
+minHeight: 895,
+opacity: 1,
+width: 1320
 }} />
 <div className="aspect-div" children={
+<><div className="aspect-div" children={
 <><div className="aspect-div" style={{
-backgroundColor: 'linear-gradient(rgba(140,254,224,1) 0%,rgba(140,254,224,0) 100%)',
-minHeight: 482,
-width: 1919
+minHeight: 183.14306640625,
+opacity: 1,
+width: 183
 }} />
 <div className="aspect-div" children={
-<><div className="aspect-div" style={{
-minHeight: 135.14306640625,
-width: 135
+<><span className="aspect-span" children="Get started" style={{
+color: 'rgba(255,255,255,1)',
+fontSize: 88.70748138427734,
+opacity: 1
 }} />
-<div className="aspect-div" children={
-<><span className="aspect-span" children="for free" style={{
+<span className="aspect-span" children="for free" style={{
 color: 'linear-gradient(rgba(25,252,192,1) 0%,rgba(59,38,254,1) 100%)',
 fontSize: 88.70748138427734,
-fontWeight: 400,
-letterSpacing: -0.8870748138427734,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
-alignItems: 'center',
+alignItems: 'flex-end',
 display: 'grid',
 gridAutoFlow: 'column',
-justifyContent: 'flex-end',
+justifyContent: 'space-between',
+minHeight: 97,
+opacity: 1,
 width: 785
 }} />
 <span className="aspect-span" children="Join over a hundred startups and creators using Aspect, to bring their ideas to life. Create, publish and download custom made sites and pages." style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 28,
-fontWeight: 400,
-letterSpacing: 0.28,
+opacity: 1,
 textAlign: 'center'
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Get Started — It’s Free" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 20,
-fontWeight: 700,
-letterSpacing: 0.4000000059604645,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
@@ -914,22 +977,25 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 72,
+opacity: 1,
 width: 261
 }} /></>
 } style={{
-alignContent: 'flex-end',
+alignContent: 'center',
 display: 'grid',
-gap: 56.85693359375,
+gap: 16.85693359375,
 justifyItems: 'center',
-minHeight: 610,
+minHeight: 647,
+opacity: 1,
 width: 785
 }} /></>
 } style={{
-alignContent: 'flex-start',
+alignItems: 'center',
 background: 'linear-gradient(rgba(19,11,77,1) 0%,rgba(5,14,28,1) 100%)',
 display: 'grid',
-justifyItems: 'center',
-minHeight: 744,
+gridAutoFlow: 'column',
+justifyContent: 'center',
+opacity: 1,
 width: 1919
 }} />
 <div className="aspect-div" children={
@@ -937,30 +1003,30 @@ width: 1919
 <><span className="aspect-span" children="ROADMAP" style={{
 color: 'rgba(51,123,246,1)',
 fontSize: 20,
-fontWeight: 700,
-letterSpacing: 6,
+opacity: 1,
 textAlign: 'center'
 }} />
 <span className="aspect-span" children="What’s coming next:" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 64,
-fontWeight: 700,
-letterSpacing: 0,
+opacity: 1,
 textAlign: 'center'
 }} /></>
 } style={{
-alignContent: 'center',
+alignContent: 'flex-start',
 display: 'grid',
-gap: 24,
+gap: 43.130859375,
 justifyItems: 'center',
+opacity: 1,
 width: 668
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+minHeight: 16.5,
+opacity: 1,
+width: 21
 }} /></>
 } style={{
 alignItems: 'center',
@@ -968,12 +1034,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 minHeight: 40,
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+minHeight: 16.5,
+opacity: 1,
+width: 21
 }} /></>
 } style={{
 alignItems: 'center',
@@ -981,12 +1049,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 minHeight: 40,
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+minHeight: 16.5,
+opacity: 1,
+width: 21
 }} /></>
 } style={{
 alignItems: 'center',
@@ -994,12 +1064,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 minHeight: 40,
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+minHeight: 16.5,
+opacity: 1,
+width: 21
 }} /></>
 } style={{
 alignItems: 'center',
@@ -1007,113 +1079,111 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-end',
 minHeight: 40,
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+backgroundColor: 'rgba(69,159,253,1)',
+minHeight: 40,
+opacity: 1,
+width: 40
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
-justifyContent: 'flex-end',
-minHeight: 40,
+justifyContent: 'flex-start',
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+backgroundColor: 'rgba(69,159,253,1)',
+minHeight: 40,
+opacity: 1,
+width: 40
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
-justifyContent: 'flex-end',
-minHeight: 40,
+justifyContent: 'flex-start',
+opacity: 1,
 width: 40
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
-minHeight: 13.5,
-width: 18
+backgroundColor: 'rgba(245,245,245,1)',
+minHeight: 40,
+opacity: 1,
+width: 40
 }} /></>
 } style={{
 alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
-justifyContent: 'flex-end',
-minHeight: 40,
+justifyContent: 'flex-start',
+opacity: 1,
 width: 40
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 32,
+gap: 41,
 justifyItems: 'flex-start',
+opacity: 1,
 width: 40
+}} />
+<div className="aspect-div" style={{
+backgroundColor: 'linear-gradient(rgba(25,252,192,1) 0%,rgba(31,250,200,1) 36.97916567325592%,rgba(69,159,253,1) 53.64583134651184%,rgba(167,176,189,1) 81.25%,rgba(245,245,245,1) 95.74467539787292%)',
+minHeight: 552,
+opacity: 1,
+width: 4
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Templates" style={{
 color: 'rgba(142,142,142,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left',
-textDecoration: 'STRIKETHROUGH'
+opacity: 1
 }} />
 <span className="aspect-span" children="Powerful Components" style={{
 color: 'rgba(142,142,142,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left',
-textDecoration: 'STRIKETHROUGH'
+opacity: 1
 }} />
 <span className="aspect-span" children="Offline mode" style={{
 color: 'rgba(142,142,142,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left',
-textDecoration: 'STRIKETHROUGH'
+opacity: 1
 }} />
 <span className="aspect-span" children="Export & Custom domains" style={{
 color: 'rgba(142,142,142,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left',
-textDecoration: 'STRIKETHROUGH'
+opacity: 1
 }} />
 <span className="aspect-span" children="Feature one" style={{
 color: 'rgba(69,159,253,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Feature two" style={{
 color: 'rgba(69,159,253,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Aspect for Teams" style={{
 color: 'rgba(15,25,71,1)',
 fontSize: 32,
-fontWeight: 700,
-letterSpacing: 0.64,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 34,
+gap: 43.59375,
 justifyItems: 'flex-start',
+minHeight: 470,
+opacity: 1,
 width: 392
 }} /></>
 } style={{
@@ -1121,15 +1191,17 @@ alignItems: 'flex-start',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
-minHeight: 568,
+opacity: 1,
 width: 460
 }} /></>
 } style={{
-alignContent: 'flex-end',
+alignContent: 'center',
 background: 'rgba(245,245,245,1)',
 display: 'grid',
+gap: 40,
 justifyItems: 'center',
 minHeight: 971,
+opacity: 1,
 width: 1920
 }} />
 <div className="aspect-div" children={
@@ -1137,88 +1209,84 @@ width: 1920
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(255,255,255,1)',
 minHeight: 47,
+opacity: 1,
 width: 169.199951171875
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Aspect" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 600,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Home" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 400,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Layouts" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 400,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 8,
+gap: 17.357421875,
 justifyItems: 'flex-start',
+minHeight: 49.54248046875,
+opacity: 1,
 width: 94.08203125
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 24,
+gap: 27.044921875,
 justifyItems: 'flex-start',
+minHeight: 94.31396484375,
+opacity: 1,
 width: 94.08203125
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Contact" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 600,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Email" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 400,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Twitter" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 400,
-letterSpacing: 0.48,
-textAlign: 'left'
+opacity: 1
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 8,
+gap: 17.357421875,
 justifyItems: 'flex-start',
+minHeight: 49.54248046875,
+opacity: 1,
 width: 94.08203125
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 24,
+gap: 29.583984375,
 justifyItems: 'flex-start',
+minHeight: 94.31396484375,
+opacity: 1,
 width: 94.08203125
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="Join the Community" style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 16,
-fontWeight: 600,
-letterSpacing: 0.48,
+opacity: 1,
 textAlign: 'right'
 }} />
 <div className="aspect-div" children={
@@ -1226,6 +1294,7 @@ textAlign: 'right'
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(225,228,232,1)',
 minHeight: 19.5,
+opacity: 1,
 width: 24
 }} /></>
 } style={{
@@ -1235,12 +1304,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'flex-start',
 minHeight: 24,
+opacity: 1,
 width: 24
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(225,228,232,1)',
 minHeight: 12.32421875,
+opacity: 1,
 width: 12.32421875
 }} /></>
 } style={{
@@ -1250,12 +1321,14 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 24,
+opacity: 1,
 width: 24
 }} />
 <div className="aspect-div" children={
 <><div className="aspect-div" style={{
 backgroundColor: 'rgba(225,228,232,1)',
 minHeight: 22,
+opacity: 1,
 width: 22
 }} /></>
 } style={{
@@ -1265,6 +1338,7 @@ display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'center',
 minHeight: 24,
+opacity: 1,
 width: 24
 }} /></>
 } style={{
@@ -1272,13 +1346,16 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 108
 }} /></>
 } style={{
 alignContent: 'center',
 display: 'grid',
-gap: 24,
+gap: 26.921875,
 justifyItems: 'flex-end',
+minHeight: 69,
+opacity: 1,
 width: 166
 }} /></>
 } style={{
@@ -1286,21 +1363,19 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+opacity: 1,
 width: 1371
 }} />
 <div className="aspect-div" children={
 <><span className="aspect-span" children="© 2021 Metacode, Inc. dba Aspect. All rights reserved." style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 14,
-fontWeight: 400,
-letterSpacing: 0.42,
-textAlign: 'left'
+opacity: 1
 }} />
 <span className="aspect-span" children="Made in Aspect." style={{
 color: 'rgba(255,255,255,1)',
 fontSize: 14,
-fontWeight: 400,
-letterSpacing: 0.42,
+opacity: 1,
 textAlign: 'right'
 }} /></>
 } style={{
@@ -1308,6 +1383,8 @@ alignItems: 'center',
 display: 'grid',
 gridAutoFlow: 'column',
 justifyContent: 'space-between',
+minHeight: 21,
+opacity: 1,
 width: 1359
 }} /></>
 } style={{
@@ -1317,6 +1394,7 @@ display: 'grid',
 gap: 117.68603515625,
 justifyItems: 'center',
 minHeight: 315,
+opacity: 1,
 width: 1920
 }} /></>
 } style={{
@@ -1325,6 +1403,7 @@ backgroundColor: 'rgba(255,255,255,1)',
 display: 'grid',
 gap: 80,
 justifyItems: 'center',
+opacity: 1,
 width: 1920
 ,
 ...this.props.style}} id={this.props.id} />
@@ -1348,6 +1427,7 @@ export namespace AspectLanding {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -1399,11 +1479,12 @@ ElementAdderFloatingView.State
     switch (this.customState) {
       case 'expanded':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1477,11 +1558,12 @@ width: 224
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1556,6 +1638,7 @@ export namespace ElementAdderFloatingView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -1612,11 +1695,12 @@ ElementAdderItem.State
     switch (this.customState) {
       case 'selected':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1674,11 +1758,12 @@ width: '100%'
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1752,6 +1837,7 @@ export namespace ElementAdderItem {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -1805,11 +1891,12 @@ ElementListFloatingView.State
     switch (this.customState) {
       case 'collapsed':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1854,11 +1941,12 @@ width: 224
 )
 default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -1942,6 +2030,7 @@ export namespace ElementListFloatingView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -1999,11 +2088,12 @@ ElementListItem.State
     switch (this.customState) {
       case 'selected':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2063,11 +2153,12 @@ width: '100%'
 )
 case 'hovered':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2135,11 +2226,12 @@ width: '100%'
 )
 case 'selected+hover':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2206,11 +2298,12 @@ width: '100%'
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2288,6 +2381,7 @@ export namespace ElementListItem {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -2341,11 +2435,12 @@ ExportButtonDropdown.State
     switch (this.customState) {
       default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2432,6 +2527,7 @@ export namespace ExportButtonDropdown {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -2483,11 +2579,12 @@ FigmaAccessTokenView.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2590,6 +2687,7 @@ export namespace FigmaAccessTokenView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -2644,11 +2742,12 @@ FigmaAuthView.State
     switch (this.customState) {
       case 'loading':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2701,11 +2800,12 @@ width: '100%'
 )
 default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2790,6 +2890,7 @@ export namespace FigmaAuthView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -2846,11 +2947,12 @@ FigmaFileSyncItem.State
     switch (this.customState) {
       case 'selected':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2909,11 +3011,12 @@ padding: '0 10px'
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -2989,6 +3092,7 @@ export namespace FigmaFileSyncItem {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -3001,156 +3105,6 @@ onBlur?: (e: any) => any;
 name?: string;
 isSelected?: boolean;
 title?: string;
-  }
-
-  export class State {
-    constructor(
-      public isHovered: boolean = false,
-      public isPressed: boolean = false,
-    ) {}
-  }
-}
-
-export class FigmaFileSyncSelection extends React.Component<
-FigmaFileSyncSelection.Props,
-FigmaFileSyncSelection.State
-> {
-  _isMounted = false;
-  get customState() {
-    
-    return 'default';
-  }
-
-  constructor(props: FigmaFileSyncSelection.Props) {
-    super(props);
-    this.state = new FigmaFileSyncSelection.State();
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
-  }
-  
-  render() {
-    switch (this.customState) {
-      default:
-return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
-  if (!this._isMounted) {
-    return;
-  }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
-  this.setState({
-    isHovered: true,
-  })
-}}
-onMouseLeave={(e: any) => {
-  if (!this._isMounted) {
-    return;
-  }
-  this.props.onMouseLeave && this.props.onMouseLeave(e);
-  this.setState({
-    isHovered: false,
-  })
-}}
-onMouseDown={(e: any) => {
-  if (!this._isMounted) {
-    return;
-  }
-  this.props.onMouseDown && this.props.onMouseDown(e);
-  this.setState({
-    isPressed: true,
-  })
-}}
-onMouseUp={(e: any) => {
-  if (!this._isMounted) {
-    return;
-  }
-  this.props.onMouseUp && this.props.onMouseUp(e);
-  this.setState({
-    isPressed: false,
-  })
-}}
-onClick={this.props.onClick?.bind(this)}
-onDoubleClick={this.props.onDoubleClick?.bind(this)}
-onChange={this.props.onChange?.bind(this)}
-onInput={this.props.onInput?.bind(this)}
-onFocus={this.props.onFocus?.bind(this)}
-onBlur={this.props.onBlur?.bind(this)} children={
-<><div className="aspect-div" children={
-<><span className="aspect-span" children="Figma files" style={{
-color: 'rgba(0,0,0,1)',
-fontSize: 10,
-fontWeight: 500,
-letterSpacing: 0.2,
-textAlign: 'left'
-}} />
-<span className="aspect-span" children="Select files to sync" style={{
-color: 'rgba(102,102,102,1)',
-fontSize: 11,
-fontWeight: 400,
-letterSpacing: 0.11,
-textAlign: 'left'
-}} /></>
-} style={{
-alignContent: 'center',
-backgroundColor: 'rgba(255,255,255,1)',
-display: 'grid',
-gap: 5,
-justifyItems: 'flex-start',
-minHeight: 60,
-width: 297
-}} />
-<div className="aspect-div" style={{
-backgroundColor: 'rgba(255,255,255,1)',
-minHeight: 223,
-width: 297
-}} /></>
-} style={{
-alignContent: 'center',
-backgroundColor: 'rgba(255,255,255,1)',
-display: 'grid',
-gap: 4,
-justifyItems: 'flex-start',
-minHeight: 295,
-width: 297
-,
-...this.props.style}} id={this.props.id} />
-)
-    }
-  }
-
-  handleMouseUp = (e: any) => {
-    if (!this._isMounted) {
-      return;
-    }
-    this.setState({
-      isPressed: false,
-    });
-  }
-}
-
-export namespace FigmaFileSyncSelection {
-  export interface Props {
-    id?: string;
-    key?: string;
-    style?: React.CSSProperties;
-    onMouseEnter?: (e: any) => any;
-onMouseLeave?: (e: any) => any;
-onMouseDown?: (e: any) => any;
-onMouseUp?: (e: any) => any;
-onClick?: (e: any) => any;
-onDoubleClick?: (e: any) => any;
-onChange?: (e: any) => any;
-onInput?: (e: any) => any;
-onFocus?: (e: any) => any;
-onBlur?: (e: any) => any;
-name?: string;
   }
 
   export class State {
@@ -3192,11 +3146,12 @@ FigmaFileSyncView.State
     switch (this.customState) {
       case 'nested':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3290,11 +3245,12 @@ width: 297
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3397,6 +3353,7 @@ export namespace FigmaFileSyncView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -3451,11 +3408,12 @@ FigmaImportSettingsView.State
     switch (this.customState) {
       default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3550,6 +3508,7 @@ export namespace FigmaImportSettingsView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -3601,11 +3560,12 @@ FigmaPluginErrorView.State
     switch (this.customState) {
       default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3675,6 +3635,7 @@ export namespace FigmaPluginErrorView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -3731,11 +3692,12 @@ FigmaPluginFrameItemView.State
     switch (this.customState) {
       case 'hovered':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3821,11 +3783,12 @@ padding: '0 12px 0 20px'
 )
 case 'selected':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3898,11 +3861,12 @@ padding: '0 20px'
 )
 case 'selected+hovered':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -3988,11 +3952,12 @@ padding: '0 12px 0 20px'
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4082,6 +4047,7 @@ export namespace FigmaPluginFrameItemView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -4137,11 +4103,12 @@ FigmaPluginItem.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4251,6 +4218,7 @@ export namespace FigmaPluginItem {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -4300,11 +4268,12 @@ FigmaPluginLoginView.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4430,6 +4399,7 @@ export namespace FigmaPluginLoginView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -4459,7 +4429,9 @@ FigmaPluginView.State
 > {
   _isMounted = false;
   get customState() {
-    
+    if (this.props.isExporting === true) {
+  return 'exportLoading';
+}
     return 'default';
   }
 
@@ -4480,13 +4452,151 @@ FigmaPluginView.State
   
   render() {
     switch (this.customState) {
-      default:
+      case 'exportLoading':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={
+<><HStack children={
+<><span className="aspect-span" children={this.props.title} style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 10,
+fontWeight: 600,
+letterSpacing: 0,
+textAlign: 'right'
+}} />
+<SimpleButton onClick={this.props.signOutOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children="Sign Out" style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+cursor: 'default',
+padding: '0 12px'
+}} /></>
+} style={{
+boxShadow: '0 1px 0 0 rgba(0,0,0,0.1)',
+justifyContent: 'space-between',
+padding: '2px 0',
+paddingLeft: 12,
+paddingRight: 2,
+width: '100%',
+zIndex: 1
+}} />
+<ScrollableList children={this.props.itemsView} style={{
+position: 'relative',
+width: '100%'
+}} />
+<div className="aspect-div" children={
+<><SimpleButton onClick={this.props.secondaryActionOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children={this.props.secondaryActionTitle} style={{
+color: 'rgba(0,0,0,1)',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+cursor: 'default',
+minHeight: 28,
+padding: '0 12px'
+}} />
+<div className="aspect-div" children={
+<><SimpleButton onClick={this.props.callToActionOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children={this.props.callToAction} style={{
+color: 'white',
+fontSize: 12,
+fontWeight: 500,
+letterSpacing: 0,
+textAlign: 'right'
+}} /></>
+} style={{
+cursor: 'default',
+minHeight: 28,
+padding: '0 12px'
+}} /></>
+} style={{
+backgroundColor: '#06f'
+}} /></>
+} style={{
+alignItems: 'center',
+backgroundColor: 'rgba(255,255,255,1)',
+boxShadow: '0 -1px 0 0 rgba(0,0,0,0.1)',
+display: 'grid',
+gap: 8,
+gridAutoFlow: 'column',
+justifyContent: 'flex-end',
+opacity: 0.5,
+padding: '6px 12px 7px',
+pointerEvents: 'none',
+width: '100%',
+zIndex: 1
+}} /></>
+} style={{
+alignContent: 'center',
+backgroundColor: 'rgba(255,255,255,1)',
+display: 'grid',
+gridTemplateRows: 'auto 1fr auto',
+height: 240,
+justifyItems: 'flex-start',
+width: 306
+,
+...this.props.style}} id={this.props.id} />
+)
+default:
+return (
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4633,6 +4743,7 @@ export namespace FigmaPluginView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -4650,6 +4761,7 @@ callToAction?: string;
 secondaryActionTitle?: string;
 secondaryActionOnClick?: (e: any) => any;
 signOutOnClick?: (e: any) => any;
+isExporting?: boolean;
   }
 
   export class State {
@@ -4691,11 +4803,12 @@ FloatingListView.State
     switch (this.customState) {
       case 'expanded':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4779,11 +4892,12 @@ width: 224
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4864,6 +4978,7 @@ export namespace FloatingListView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -4921,11 +5036,12 @@ HStack.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -4991,6 +5107,7 @@ export namespace HStack {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -5041,11 +5158,12 @@ ImportButtonDropdown.State
     switch (this.customState) {
       default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5132,6 +5250,7 @@ export namespace ImportButtonDropdown {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -5187,11 +5306,12 @@ LandingPage.State
     switch (this.customState) {
       case 'tablet':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5322,11 +5442,12 @@ width: 1000
 )
 case 'mobile':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5460,11 +5581,12 @@ width: 380
 )
 default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5612,6 +5734,7 @@ export namespace LandingPage {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -5671,11 +5794,12 @@ LandingPageCallToActionButton.State
     switch (this.customState) {
       case 'hovered':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5735,11 +5859,12 @@ padding: '0 16px'
 )
 case 'pressed':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5799,11 +5924,12 @@ userSelect: 'none'
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -5881,6 +6007,7 @@ export namespace LandingPageCallToActionButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -5939,11 +6066,12 @@ null
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6013,6 +6141,7 @@ export namespace LandingPageHeader {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -6063,11 +6192,12 @@ LandingPageHeaderButton.State
     switch (this.customState) {
       default:
 return (
-<SimpleButton onMouseEnter={(e: any) => {
+<SimpleButton onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6138,6 +6268,7 @@ export namespace LandingPageHeaderButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -6188,11 +6319,12 @@ LandingPageRow.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6259,6 +6391,7 @@ export namespace LandingPageRow {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -6311,11 +6444,12 @@ ModalView.State
     switch (this.customState) {
       case 'noscroll':
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6389,11 +6523,12 @@ zIndex: 5
 )
 default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6484,6 +6619,7 @@ export namespace ModalView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -6541,11 +6677,12 @@ ProjectSettingsView.State
     switch (this.customState) {
       case 'copiedApiKey':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6663,11 +6800,12 @@ width: '100%'
 )
 case 'copiedProjectId':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6790,11 +6928,12 @@ width: '100%'
 )
 default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -6940,6 +7079,7 @@ export namespace ProjectSettingsView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -6998,11 +7138,12 @@ ProjectViewActionButton.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7073,6 +7214,7 @@ export namespace ProjectViewActionButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7125,11 +7267,12 @@ ProjectViewButton.State
     switch (this.customState) {
       case 'editing':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7187,11 +7330,12 @@ width: 224
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7269,6 +7413,7 @@ export namespace ProjectViewButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7324,11 +7469,12 @@ PropertyFloatingView.State
     switch (this.customState) {
       case 'expanded':
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7409,11 +7555,12 @@ width: 224
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7488,6 +7635,7 @@ export namespace PropertyFloatingView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7542,11 +7690,12 @@ ScrollableList.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7611,6 +7760,7 @@ export namespace ScrollableList {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7661,11 +7811,12 @@ SidebarItem.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7741,6 +7892,7 @@ export namespace SidebarItem {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7790,11 +7942,12 @@ SignInButton.State
     switch (this.customState) {
       default:
 return (
-<button className="aspect-button" onMouseEnter={(e: any) => {
+<button className="aspect-button" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7863,6 +8016,7 @@ export namespace SignInButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -7913,11 +8067,12 @@ SignInInput.State
     switch (this.customState) {
       default:
 return (
-<input className="aspect-input" onMouseEnter={(e: any) => {
+<input className="aspect-input" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -7982,6 +8137,7 @@ export namespace SignInInput {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8034,11 +8190,12 @@ SignInView.State
     switch (this.customState) {
       case 'passwordSignIn':
 return (
-<form className="aspect-form" onMouseEnter={(e: any) => {
+<form className="aspect-form" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8097,11 +8254,12 @@ onSubmit={this.props.onPasswordSignInSubmit?.bind(this)} style={this.props.style
 )
 default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8174,6 +8332,7 @@ export namespace SignInView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8227,11 +8386,12 @@ SignInWithPasswordButton.State
     switch (this.customState) {
       default:
 return (
-<button className="aspect-button" onMouseEnter={(e: any) => {
+<button className="aspect-button" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8301,6 +8461,7 @@ export namespace SignInWithPasswordButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8328,7 +8489,9 @@ SimpleButton.State
 > {
   _isMounted = false;
   get customState() {
-    if (this.state.isPressed === true) {
+    if (this.props.disabled === true) {
+  return 'disabled';
+} else if (this.state.isPressed === true) {
   return 'pressed';
 } else if (this.state.isHovered === true) {
   return 'hovered';
@@ -8355,11 +8518,12 @@ SimpleButton.State
     switch (this.customState) {
       case 'hovered':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8405,11 +8569,12 @@ minWidth: 28
 )
 case 'pressed':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8453,13 +8618,66 @@ minWidth: 28
 ,
 ...this.props.style}} id={this.props.id} />
 )
-default:
+case 'disabled':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
+  this.setState({
+    isHovered: true,
+  })
+}}
+onMouseLeave={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseLeave && this.props.onMouseLeave(e);
+  this.setState({
+    isHovered: false,
+  })
+}}
+onMouseDown={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseDown && this.props.onMouseDown(e);
+  this.setState({
+    isPressed: true,
+  })
+}}
+onMouseUp={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseUp && this.props.onMouseUp(e);
+  this.setState({
+    isPressed: false,
+  })
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)} children={this.props.children} style={{
+backgroundColor: 'rgba(255,255,255,0.5)',
+minHeight: 28,
+minWidth: 28,
+pointerEvents: 'none'
+,
+...this.props.style}} id={this.props.id} />
+)
+default:
+return (
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
+  if (!this._isMounted) {
+    return;
+  }
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8521,6 +8739,7 @@ export namespace SimpleButton {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8532,6 +8751,7 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 children?: React.ReactNode;
+disabled?: boolean;
   }
 
   export class State {
@@ -8571,11 +8791,12 @@ Test.State
     switch (this.customState) {
       default:
 return (
-<VStack onMouseEnter={(e: any) => {
+<VStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8636,6 +8857,7 @@ export namespace Test {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8685,11 +8907,12 @@ Text.State
     switch (this.customState) {
       default:
 return (
-<span className="aspect-span" onMouseEnter={(e: any) => {
+<span className="aspect-span" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8747,6 +8970,7 @@ export namespace Text {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -8758,76 +8982,6 @@ onFocus?: (e: any) => any;
 onBlur?: (e: any) => any;
 name?: string;
 text?: string;
-  }
-
-  export class State {
-    constructor(
-      public isHovered: boolean = false,
-      public isPressed: boolean = false,
-    ) {}
-  }
-}
-
-export class View1 extends React.Component<
-View1.Props,
-View1.State
-> {
-  _isMounted = false;
-  get customState() {
-    
-    return 'default';
-  }
-
-  constructor(props: View1.Props) {
-    super(props);
-    this.state = new View1.State();
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
-  }
-  
-  render() {
-    switch (this.customState) {
-      default:
-return (
-null
-)
-    }
-  }
-
-  handleMouseUp = (e: any) => {
-    if (!this._isMounted) {
-      return;
-    }
-    this.setState({
-      isPressed: false,
-    });
-  }
-}
-
-export namespace View1 {
-  export interface Props {
-    id?: string;
-    key?: string;
-    style?: React.CSSProperties;
-    onMouseEnter?: (e: any) => any;
-onMouseLeave?: (e: any) => any;
-onMouseDown?: (e: any) => any;
-onMouseUp?: (e: any) => any;
-onClick?: (e: any) => any;
-onDoubleClick?: (e: any) => any;
-onChange?: (e: any) => any;
-onInput?: (e: any) => any;
-onFocus?: (e: any) => any;
-onBlur?: (e: any) => any;
-name?: string;
   }
 
   export class State {
@@ -8875,11 +9029,12 @@ null
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -8954,6 +9109,7 @@ export namespace ViewStateItemView {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -9008,11 +9164,12 @@ ViewStateManagerCondition.State
     switch (this.customState) {
       case 'edit-text-value':
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -9072,11 +9229,12 @@ width: '100%'
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -9156,6 +9314,7 @@ export namespace ViewStateManagerCondition {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -9213,11 +9372,12 @@ null
 )
 default:
 return (
-<HStack onMouseEnter={(e: any) => {
+<HStack onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -9292,6 +9452,7 @@ export namespace ViewStateManagerHeader {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -9343,11 +9504,12 @@ ViewStateSidebar.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -9473,6 +9635,7 @@ export namespace ViewStateSidebar {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;
@@ -9522,11 +9685,12 @@ VStack.State
     switch (this.customState) {
       default:
 return (
-<div className="aspect-div" onMouseEnter={(e: any) => {
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
   if (!this._isMounted) {
     return;
   }
-  this.props.onMouseEnter && this.props.onMouseEnter(e);
+  this.props.onMouseOver && this.props.onMouseOver(e);
   this.setState({
     isHovered: true,
   })
@@ -9591,6 +9755,7 @@ export namespace VStack {
     key?: string;
     style?: React.CSSProperties;
     onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
 onMouseLeave?: (e: any) => any;
 onMouseDown?: (e: any) => any;
 onMouseUp?: (e: any) => any;

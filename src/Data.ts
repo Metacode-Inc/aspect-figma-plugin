@@ -7,6 +7,8 @@ export class DesignNode {
 
     public absoluteRenderBounds: any,
     public blendMode: any,
+    public bottomLeftRadius: any,
+    public bottomRightRadius: any,
     public characters: any,
     public fills: any,
 
@@ -35,6 +37,9 @@ export class DesignNode {
     public textAlignVertical: any,
     public textAutoResize: any,
     public textCase: any,
-    public textDecoration: any
+    public textDecoration: any,
+
+    public topLeftRadius: any,
+    public topRightRadius: any
   ) {}
 }

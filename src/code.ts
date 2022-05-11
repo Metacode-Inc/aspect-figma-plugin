@@ -77,6 +77,8 @@ function getNodeData(node: any) {
     undefined,
     node.absoluteRenderBounds,
     node.blendMode,
+    node.bottomLeftRadius,
+    node.bottomRightRadius,
     node.characters,
     node.fills,
     node.fontName,
@@ -101,7 +103,9 @@ function getNodeData(node: any) {
     node.textAlignVertical,
     node.textAutoResize,
     node.textCase,
-    node.textDecoration
+    node.textDecoration,
+    node.topLeftRadius,
+    node.topRightRadius
   );
 
   if (node.children) {

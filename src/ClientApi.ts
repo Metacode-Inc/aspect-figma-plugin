@@ -1,7 +1,7 @@
 import { DesignNode } from "./Data";
 
 export class ClientApi {
-  static env = "development";
+  static env = "production";
   static publicFirebaseApiKey = "AIzaSyA6k-XDZwLIjGfCuXgd9L7nna1AWgx1AN4";
   static apiBaseUrl =
     ClientApi.env === "development"
