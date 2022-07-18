@@ -1,9 +1,8 @@
 .aspect-div,
+.aspect-form,
 .aspect-input,
 .aspect-button,
-.aspect-a,
 .aspect-p,
-.aspect-span,
 .aspect-h1,
 .aspect-h2,
 .aspect-h3,
@@ -35,9 +34,17 @@
   padding: 4px 6px;
   margin: 0;
   border: 1px solid #ddd;
+  border-radius: 0;
 
   /* removes unwanted inner shadow on mobile */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.aspect-button {
+  border: none;
+  color: unset;
+  font-size: unset;
+  font-weight: unset;
 }

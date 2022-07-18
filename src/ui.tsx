@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import {
   FigmaPluginFrameItemView,
   FigmaPluginLoginView,
-  FigmaPluginView,
+  FigmaExportView,
 } from "./aspect_modules/components";
 import { ClientApi } from "./ClientApi";
 import { DesignNode } from "./Data";
@@ -131,7 +131,6 @@ class App extends React.Component<any, State> {
                 <span style={{ fontWeight: 300, userSelect: "none" }}>—</span>
               }
               accessoryIconOnClick={() => {
-                console.log("remove frame");
                 this.removeFrameFromExport(frame);
               }}
             />
@@ -139,14 +138,17 @@ class App extends React.Component<any, State> {
         }
       })();
       return (
-        <FigmaPluginView
+        <FigmaExportView
           title={"Frames".toUpperCase()}
           style={{ width: "100%", height: "100%", cursor: "default" }}
           itemsView={itemsView}
           secondaryActionTitle="Add selected frames"
           isExporting={this.state.isExporting}
+          isEmpty={!this.state.framesToExport.length}
           secondaryActionOnClick={this.addSelectedFramesToExport}
-          callToAction={this.state.isExporting ? "Exporting…" : "Export"}
+          callToAction={
+            this.state.isExporting ? "Exporting…" : "Export to Aspect"
+          }
           callToActionOnClick={() => this.exportFrames(true)}
           signOutOnClick={() => this.signOut()}
         />
