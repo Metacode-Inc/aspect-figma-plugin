@@ -20,7 +20,7 @@ class State {
     public pageFrameIds: {
       [pageId: string]: { name: string; frameIds: string[] };
     } = {},
-    public isExporting: boolean = false,
+    public exportPhase: "exporting" | "exported" | "default" = "default",
     public errorMessage?: string
   ) {}
 }
@@ -143,12 +143,22 @@ class App extends React.Component<any, State> {
           style={{ width: "100%", height: "100%", cursor: "default" }}
           itemsView={itemsView}
           secondaryActionTitle="Add selected frames"
-          isExporting={this.state.isExporting}
+          exportPhase={this.state.exportPhase}
           isEmpty={!this.state.framesToExport.length}
           secondaryActionOnClick={this.addSelectedFramesToExport}
-          callToAction={
-            this.state.isExporting ? "Exporting…" : "Export to Aspect"
-          }
+          callToAction={(() => {
+            switch (this.state.exportPhase) {
+              case "exporting":
+                return "Exporting…";
+              case "exported":
+                return "Done";
+              default:
+                return "Export to Aspect";
+            }
+          })()}
+          exportDoneOnClick={() => {
+            this.setState({ exportPhase: "default" });
+          }}
           callToActionOnClick={() => this.exportFrames(true)}
           signOutOnClick={() => this.signOut()}
         />
@@ -282,9 +292,9 @@ class App extends React.Component<any, State> {
   }
 
   async exportFrames(shouldRetryOnAuthError: boolean = false) {
-    this.setState({ isExporting: true }, async () => {
+    this.setState({ exportPhase: "exporting" }, async () => {
       if (!this.state.api) {
-        this.setState({ isExporting: false });
+        this.setState({ exportPhase: "default" });
         return;
       }
 
@@ -309,7 +319,7 @@ class App extends React.Component<any, State> {
         }
       }
 
-      this.setState({ isExporting: false });
+      this.setState({ exportPhase: "exported" });
     });
   }
 

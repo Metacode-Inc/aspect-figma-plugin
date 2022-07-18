@@ -2194,7 +2194,7 @@ onKeyPress={this.props.onKeyPress?.bind(this)} children={
 <polygon points="3 0 3 1 7.29 1 0.15 8.15 0.85 8.85 8 1.71 8 6 9 6 9 0 3 0" /></>
 } viewBox="0 0 9 9"
 xmlns="http://www.w3.org/2000/svg" style={{
-width: 9
+width: 11
 ,
 ...removeUndefinedProperties(this.props.style)}} id={this.props.id} />
 )
@@ -2867,20 +2867,46 @@ gridTemplateColumns: '1fr auto 1fr',
 width: '100%'
 }} />
 <div className="aspect-div" children={
-<><VisualEditorCallToActionButton onClick={this.props.copyCodeOnClick?.bind(this)} text="Copy UI code from any website" style={{
-backgroundColor: '#fff',
+<><SimpleButton onClick={this.props.importDesignOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children="Import Figma design" />
+<DiagonalArrowIcon style={{
+position: 'relative',
+top: 1
+}} /></>
+} type="type" style={{
 border: '1px solid #ddd',
-color: 'inherit'
+color: 'inherit',
+fontSize: 13,
+fontWeight: 500,
+gap: 8,
+height: 40,
+justifyContent: 'center'
 }} />
-<VisualEditorCallToActionButton onClick={this.props.importDesignOnClick?.bind(this)} text="Import Figma design" style={{
-backgroundColor: '#fff',
+<SimpleButton onClick={this.props.copyCodeOnClick?.bind(this)}
+children={
+<><span className="aspect-span" children="Copy HTML from any website" />
+<DiagonalArrowIcon style={{
+position: 'relative',
+top: 1
+}} /></>
+} type="type" style={{
 border: '1px solid #ddd',
-color: 'inherit'
+color: 'inherit',
+fontSize: 13,
+fontWeight: 500,
+gap: 8,
+height: 40,
+justifyContent: 'center'
 }} />
-<VisualEditorCallToActionButton onClick={this.props.insertHTMLOnClick?.bind(this)} text="Insert HTML code" style={{
+<VisualEditorCallToActionButton onClick={this.props.insertHTMLOnClick?.bind(this)} text="Insert HTML" style={{
 backgroundColor: '#fff',
 border: '1px solid #ddd',
-color: 'inherit'
+color: 'inherit',
+fontSize: 13,
+fontWeight: 500,
+gap: 8,
+justifyContent: 'center'
 }} /></>
 } style={{
 display: 'grid',
@@ -3364,11 +3390,11 @@ FigmaExportView.State
 > {
 _isMounted = false;
 get customState() {
-if (this.props.isExporting === true) {
+if (this.props.exportPhase === 'exporting') {
 return 'exporting';
 } else if (this.props.isEmpty === true) {
 return 'empty';
-} else if (this.props.hasExported === true) {
+} else if (this.props.exportPhase === 'exported') {
 return 'exported';
 }
 return 'default';
@@ -3579,24 +3605,19 @@ width: '100%',
 zIndex: 1
 }} />
 <div className="aspect-div" children={
-<><span className="aspect-span" children="1. Select the frames you want to export" style={{
-color: '#888',
-fontSize: 14,
-lineHeight: 1.4,
-textAlign: 'center'
-}} />
-<span className="aspect-span" children="2. Click &quot;Add selected frames&quot;" style={{
-color: '#888',
-fontSize: 14,
-lineHeight: 1.4,
-textAlign: 'center'
-}} /></>
+<><span className="aspect-span" children="1. Select the frames you want to export" />
+<span className="aspect-span" children="2. Click &quot;Add selected frames&quot;" /></>
 } style={{
 alignItems: 'center',
+color: '#444',
 display: 'flex',
 flexDirection: 'column',
+fontSize: 14,
 height: '100%',
 justifyContent: 'center',
+letterSpacing: -0.2,
+lineHeight: 1.5,
+textAlign: 'center',
 width: '100%'
 }} />
 <div className="aspect-div" children={
@@ -3702,9 +3723,14 @@ width: '100%',
 zIndex: 1
 }} />
 <div className="aspect-div" children={
-<><span className="aspect-span" children={this.props.exportedMessage} style={{
-color: '#888',
-fontSize: 14,
+<><FigmaPluginViewSuccessIcon style={{
+color: '#31D158'
+}} />
+<span className="aspect-span" children="Exported to Aspect!" style={{
+color: '#444',
+fontSize: 13,
+fontWeight: 500,
+letterSpacing: -0.2,
 lineHeight: 1.4,
 textAlign: 'center'
 }} /></>
@@ -3712,6 +3738,7 @@ textAlign: 'center'
 alignItems: 'center',
 display: 'flex',
 flexDirection: 'column',
+gap: 8,
 height: '100%',
 justifyContent: 'center',
 width: '100%'
@@ -3890,11 +3917,9 @@ callToAction?: string;
 secondaryActionTitle?: string;
 secondaryActionOnClick?: (e: any) => any;
 signOutOnClick?: (e: any) => any;
-isExporting?: boolean;
 isEmpty?: boolean;
-exportedMessage?: string;
 exportDoneOnClick?: (e: any) => any;
-hasExported?: boolean;
+exportPhase?: string;
 }
 
 export class State {
@@ -4724,6 +4749,135 @@ onKeyPress?: (e: any) => any;
 signinOnClick?: (e: any) => any;
 logoView?: React.ReactNode;
 signupOnClick?: (e: any) => any;
+}
+
+export class State {
+constructor(
+public isHovered: boolean = false,
+public isPressed: boolean = false,
+) {}
+}
+}
+
+export class FigmaPluginViewSuccessIcon extends React.Component<
+FigmaPluginViewSuccessIcon.Props,
+FigmaPluginViewSuccessIcon.State
+> {
+_isMounted = false;
+get customState() {
+
+return 'default';
+}
+
+constructor(props: FigmaPluginViewSuccessIcon.Props) {
+super(props);
+this.state = new FigmaPluginViewSuccessIcon.State();
+}
+
+componentDidMount() {
+this._isMounted = true;
+document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+}
+
+componentWillUnmount() {
+this._isMounted = false;
+document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+}
+
+render() {
+switch (this.customState) {
+default:
+return (
+<svg className="aspect-svg" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseOver && this.props.onMouseOver(e);
+this.setState({
+isHovered: true,
+})
+}}
+onMouseLeave={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseLeave && this.props.onMouseLeave(e);
+this.setState({
+isHovered: false,
+})
+}}
+onMouseDown={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseDown && this.props.onMouseDown(e);
+this.setState({
+isPressed: true,
+})
+}}
+onMouseUp={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseUp && this.props.onMouseUp(e);
+this.setState({
+isPressed: false,
+})
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)}
+onKeyDown={this.props.onKeyDown?.bind(this)}
+onKeyUp={this.props.onKeyUp?.bind(this)}
+onKeyPress={this.props.onKeyPress?.bind(this)} children={
+<><path clipRule="evenodd"
+d="M7 13A6 6 0 1 0 7 1a6 6 0 0 0 0 12Zm0 1A7 7 0 1 0 7 0a7 7 0 0 0 0 14Z"
+fillRule="evenodd" />
+<path clipRule="evenodd"
+d="M10.354 5.354 6 9.707 3.646 7.354l.708-.708L6 8.293l3.646-3.647.708.708Z"
+fillRule="evenodd" /></>
+} fill="currentColor"
+viewBox="0 0 14 14"
+xmlns="http://www.w3.org/2000/svg" style={{
+width: 32
+,
+...removeUndefinedProperties(this.props.style)}} id={this.props.id} />
+)
+}
+}
+
+handleMouseUp = (e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.setState({
+isPressed: false,
+});
+}
+}
+
+export namespace FigmaPluginViewSuccessIcon {
+export interface Props {
+id?: string;
+style?: React.CSSProperties;
+onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+onKeyDown?: (e: any) => any;
+onKeyUp?: (e: any) => any;
+onKeyPress?: (e: any) => any;
 }
 
 export class State {
@@ -5746,7 +5900,7 @@ onKeyPress={this.props.onKeyPress?.bind(this)} children={
 fontSize: 48,
 letterSpacing: -0.7
 }} />
-<span className="aspect-span" children="Create React components visually, with a design system that syncs to your codebase." style={{
+<span className="aspect-span" children="Convert designs into React code. Sync to your codebase." style={{
 color: 'rgb(107, 114, 128)',
 fontSize: 25,
 letterSpacing: 0.22,
@@ -6108,12 +6262,12 @@ fontSize: 'calc(min(12.5vw, 56px))',
 letterSpacing: -1,
 lineHeight: 1
 }} />
-<span className="aspect-span" children="Create React components visually, with a design system that syncs to your codebase." style={{
+<span className="aspect-span" children="Convert designs into React code. Sync to your codebase." style={{
 color: 'rgb(107, 114, 128)',
 fontSize: 22,
 letterSpacing: 0.17,
 lineHeight: 1.5,
-maxWidth: 500
+maxWidth: 340
 }} /></>
 } style={{
 gap: 14,
@@ -6459,9 +6613,9 @@ onKeyPress={this.props.onKeyPress?.bind(this)} children={
 fontSize: 48,
 letterSpacing: -0.7
 }} />
-<span className="aspect-span" children="Create React components visually, with a design system that syncs to your codebase." style={{
+<span className="aspect-span" children="Convert designs into React code. Sync to your codebase." style={{
 color: 'rgb(107, 114, 128)',
-fontSize: 25,
+fontSize: 24,
 letterSpacing: 0.22,
 lineHeight: 1.5,
 maxWidth: 640
@@ -13214,6 +13368,139 @@ onBlur?: (e: any) => any;
 onKeyDown?: (e: any) => any;
 onKeyUp?: (e: any) => any;
 onKeyPress?: (e: any) => any;
+}
+
+export class State {
+constructor(
+public isHovered: boolean = false,
+public isPressed: boolean = false,
+) {}
+}
+}
+
+export class VisualEditorBorderButton extends React.Component<
+VisualEditorBorderButton.Props,
+VisualEditorBorderButton.State
+> {
+_isMounted = false;
+get customState() {
+
+return 'default';
+}
+
+constructor(props: VisualEditorBorderButton.Props) {
+super(props);
+this.state = new VisualEditorBorderButton.State();
+}
+
+componentDidMount() {
+this._isMounted = true;
+document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+}
+
+componentWillUnmount() {
+this._isMounted = false;
+document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+}
+
+render() {
+switch (this.customState) {
+default:
+return (
+<div className="aspect-div" onMouseEnter={this.props.onMouseEnter?.bind(this)}
+onMouseOver={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseOver && this.props.onMouseOver(e);
+this.setState({
+isHovered: true,
+})
+}}
+onMouseLeave={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseLeave && this.props.onMouseLeave(e);
+this.setState({
+isHovered: false,
+})
+}}
+onMouseDown={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseDown && this.props.onMouseDown(e);
+this.setState({
+isPressed: true,
+})
+}}
+onMouseUp={(e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.props.onMouseUp && this.props.onMouseUp(e);
+this.setState({
+isPressed: false,
+})
+}}
+onClick={this.props.onClick?.bind(this)}
+onDoubleClick={this.props.onDoubleClick?.bind(this)}
+onChange={this.props.onChange?.bind(this)}
+onInput={this.props.onInput?.bind(this)}
+onFocus={this.props.onFocus?.bind(this)}
+onBlur={this.props.onBlur?.bind(this)}
+onKeyDown={this.props.onKeyDown?.bind(this)}
+onKeyUp={this.props.onKeyUp?.bind(this)}
+onKeyPress={this.props.onKeyPress?.bind(this)} children={
+<><SimpleButton children={this.props.children} type="submit" style={{
+height: '100%',
+justifyContent: 'center',
+padding: '0 14px',
+width: '100%'
+}} /></>
+} style={{
+backgroundColor: '#fff',
+border: '1px solid #ddd',
+color: 'inherit',
+fontSize: 13,
+fontWeight: 500,
+height: 40
+,
+...removeUndefinedProperties(this.props.style)}} id={this.props.id} />
+)
+}
+}
+
+handleMouseUp = (e: any) => {
+if (!this._isMounted) {
+return;
+}
+this.setState({
+isPressed: false,
+});
+}
+}
+
+export namespace VisualEditorBorderButton {
+export interface Props {
+id?: string;
+style?: React.CSSProperties;
+onMouseEnter?: (e: any) => any;
+onMouseOver?: (e: any) => any;
+onMouseLeave?: (e: any) => any;
+onMouseDown?: (e: any) => any;
+onMouseUp?: (e: any) => any;
+onClick?: (e: any) => any;
+onDoubleClick?: (e: any) => any;
+onChange?: (e: any) => any;
+onInput?: (e: any) => any;
+onFocus?: (e: any) => any;
+onBlur?: (e: any) => any;
+onKeyDown?: (e: any) => any;
+onKeyUp?: (e: any) => any;
+onKeyPress?: (e: any) => any;
+children?: React.ReactNode;
 }
 
 export class State {
