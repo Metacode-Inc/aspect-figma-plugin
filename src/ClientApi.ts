@@ -157,19 +157,22 @@ export class ClientApi {
   static async getUser(idToken: string) {
     const data = new FormData();
     data.append("idToken", idToken);
-    return (await ClientApi.postRequest(ClientApi.apiUrl("/v1/get-user"), data))
+    return (await ClientApi.postRequest(ClientApi.apiUrl("/v2/get-user"), data))
       .data;
   }
 
-  static async getMainProjectId(idToken: string) {
+  static async getMainProject(
+    idToken: string
+  ): Promise<{ org: any; project: any }> {
     const data = new FormData();
     data.append("idToken", idToken);
+
     return (
       await ClientApi.postRequest(
-        ClientApi.apiUrl("/v1/get-main-project-id"),
+        ClientApi.apiUrl("/v2/initial-design-project"),
         data
       )
-    ).data.projectId as string;
+    ).data;
   }
 
   constructor(
@@ -180,23 +183,27 @@ export class ClientApi {
     public projectId: string
   ) {}
 
-  // user
-
-  async getUser() {
-    const data = new FormData();
-    data.append("idToken", this.idToken);
-    return (await ClientApi.postRequest(ClientApi.apiUrl("/v1/user"), data))
-      .data;
+  authedPostRequest(
+    endpoint: string,
+    formData: FormData = new FormData(),
+    responseType: "json" | "text" | "zip" = "json"
+  ) {
+    formData.append("idToken", this.idToken);
+    return ClientApi.postRequest(
+      ClientApi.apiUrl(endpoint),
+      formData,
+      undefined,
+      responseType
+    );
   }
 
   // design
 
-  uploadDesignFrames(frames: DesignNode[]) {
+  uploadDesignFrames(designs: DesignNode[]) {
     const data = new FormData();
-    data.append("idToken", this.idToken);
     data.append("projectId", this.projectId);
-    data.append("frames", JSON.stringify(frames));
+    data.append("designs", JSON.stringify(designs));
 
-    return ClientApi.postRequest(ClientApi.apiUrl("/v1/upload-designs"), data);
+    return this.authedPostRequest("/v2/upload-designs", data);
   }
 }

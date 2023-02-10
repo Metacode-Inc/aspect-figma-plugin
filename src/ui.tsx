@@ -15,6 +15,7 @@ class State {
   constructor(
     public preAuthToken?: string,
     public api?: ClientApi,
+    public isLoadingInitialData: boolean = true,
     public framesToExport: DesignNode[] = [],
     public selectedFrames: DesignNode[] = [],
     public pageFrameIds: {
@@ -100,24 +101,7 @@ class App extends React.Component<any, State> {
   render() {
     if (this.state.api) {
       const itemsView = (() => {
-        if (!this.state.framesToExport.length) {
-          return (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                fontSize: 13,
-                fontWeight: 500,
-              }}
-            >
-              Select frames to import
-            </div>
-          );
-        } else {
+        if (this.state.framesToExport.length) {
           return this.state.framesToExport.map((frame) => (
             <FigmaPluginFrameItemView
               key={frame.id}
@@ -135,6 +119,23 @@ class App extends React.Component<any, State> {
               }}
             />
           ));
+        } else {
+          return (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+
+                fontSize: 13,
+                fontWeight: 500,
+              }}
+            >
+              Select frames to import
+            </div>
+          );
         }
       })();
       return (
@@ -211,10 +212,19 @@ class App extends React.Component<any, State> {
   ) {
     try {
       const user = await ClientApi.getUser(idToken);
-      const projectId = await ClientApi.getMainProjectId(idToken);
+      const { org, project } = await ClientApi.getMainProject(idToken);
+      console.log("org", org);
+      console.log("project", project);
+
       this.setState(
         {
-          api: new ClientApi(idToken, refreshToken, expiresIn, user, projectId),
+          api: new ClientApi(
+            idToken,
+            refreshToken,
+            expiresIn,
+            user,
+            project.id
+          ),
           preAuthToken: undefined,
         },
         () => {
