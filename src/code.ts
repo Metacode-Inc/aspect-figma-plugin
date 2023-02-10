@@ -105,7 +105,17 @@ function getNodeData(node: any) {
     node.textCase,
     node.textDecoration,
     node.topLeftRadius,
-    node.topRightRadius
+    node.topRightRadius,
+    node.layoutAlign,
+    node.layoutGrids,
+    node.layoutGrow,
+    node.layoutMode,
+    node.layoutPositioning,
+    node.itemSpacing,
+    node.primaryAxisAlignItems,
+    node.primaryAxisSizingMode,
+    node.counterAxisAlignItems,
+    node.counterAxisSizingMode
   );
 
   if (node.children) {

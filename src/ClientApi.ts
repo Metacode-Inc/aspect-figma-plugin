@@ -1,7 +1,7 @@
 import { DesignNode } from "./Data";
 
 export class ClientApi {
-  static env = "production";
+  static env = "development";
   static publicFirebaseApiKey = "AIzaSyA6k-XDZwLIjGfCuXgd9L7nna1AWgx1AN4";
   static apiBaseUrl =
     ClientApi.env === "development"
@@ -197,9 +197,6 @@ export class ClientApi {
     data.append("projectId", this.projectId);
     data.append("frames", JSON.stringify(frames));
 
-    return ClientApi.postRequest(
-      ClientApi.apiUrl("/v1/upload-design-frames"),
-      data
-    );
+    return ClientApi.postRequest(ClientApi.apiUrl("/v1/upload-designs"), data);
   }
 }

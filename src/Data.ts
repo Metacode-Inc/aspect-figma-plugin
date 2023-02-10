@@ -40,6 +40,18 @@ export class DesignNode {
     public textDecoration: any,
 
     public topLeftRadius: any,
-    public topRightRadius: any
+    public topRightRadius: any,
+
+    public layoutAlign: any,
+    public layoutGrids: any,
+    public layoutGrow: any,
+    public layoutMode: any,
+    public layoutPositioning: any,
+
+    public itemSpacing: any,
+    public primaryAxisAlignItems: any,
+    public primaryAxisSizingMode: any,
+    public counterAxisAlignItems: any,
+    public counterAxisSizingMode: any
   ) {}
 }

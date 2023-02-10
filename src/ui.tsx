@@ -179,11 +179,11 @@ class App extends React.Component<any, State> {
               const preAuthToken = res.data.token;
               this.setState({ preAuthToken });
 
-              // open new tab to https://dev.aspect.app/auth/figma-plugin?preAuthToken=preAuthToken
+              // open new tab to https://aspect.app/auth/figma-plugin?preAuthToken=preAuthToken
               const baseUrl =
                 ClientApi.env === "development"
                   ? "http://localhost:3000"
-                  : "https://dev.aspect.app";
+                  : "https://aspect.app";
               const url = new URL(`${baseUrl}/auth/figma-plugin`);
               url.searchParams.set("preAuthToken", preAuthToken);
               url.searchParams.set("src", this.pluginSource);
