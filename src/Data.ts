@@ -6,10 +6,15 @@ export class DesignNode {
     public children: DesignNode[] = [],
 
     public absoluteRenderBounds: any,
+    public absoluteBoundingBox: any,
+    public bounds: any,
+
     public blendMode: any,
     public bottomLeftRadius: any,
     public bottomRightRadius: any,
     public characters: any,
+
+    public effects: any,
     public fills: any,
 
     public fontName: any,
@@ -31,6 +36,10 @@ export class DesignNode {
     public strokeMiterLimit: any,
     public strokeStyleId: any,
     public strokeWeight: any,
+    public strokeTopWeight: any,
+    public strokeRightWeight: any,
+    public strokeBottomWeight: any,
+    public strokeLeftWeight: any,
     public strokes: any,
 
     public textAlignHorizontal: any,
