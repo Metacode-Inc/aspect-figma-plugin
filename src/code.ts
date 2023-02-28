@@ -76,10 +76,13 @@ function getNodeData(node: any) {
     node.type,
     undefined,
     node.absoluteRenderBounds,
+    node.absoluteBoundingBox,
+    node.bounds,
     node.blendMode,
     node.bottomLeftRadius,
     node.bottomRightRadius,
     node.characters,
+    node.effects,
     node.fills,
     node.fontName,
     node.fontSize,
@@ -98,6 +101,10 @@ function getNodeData(node: any) {
     node.strokeMiterLimit,
     node.strokeStyleId,
     node.strokeWeight,
+    node.strokeTopWeight,
+    node.strokeRightWeight,
+    node.strokeBottomWeight,
+    node.strokeLeftWeight,
     node.strokes,
     node.textAlignHorizontal,
     node.textAlignVertical,
@@ -105,7 +112,17 @@ function getNodeData(node: any) {
     node.textCase,
     node.textDecoration,
     node.topLeftRadius,
-    node.topRightRadius
+    node.topRightRadius,
+    node.layoutAlign,
+    node.layoutGrids,
+    node.layoutGrow,
+    node.layoutMode,
+    node.layoutPositioning,
+    node.itemSpacing,
+    node.primaryAxisAlignItems,
+    node.primaryAxisSizingMode,
+    node.counterAxisAlignItems,
+    node.counterAxisSizingMode
   );
 
   if (node.children) {
